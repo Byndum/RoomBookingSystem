@@ -7,5 +7,9 @@ module com.example.roombookingsystem {
     requires org.kordamp.bootstrapfx.core;
 
     opens com.example.roombookingsystem to javafx.fxml;
-    exports com.example.roombookingsystem;
+    //exports com.example.roombookingsystem;
+    exports com.example.roombookingsystem.application;
+    opens com.example.roombookingsystem.application to javafx.fxml;
+    exports com.example.roombookingsystem.application.controller;
+    opens com.example.roombookingsystem.application.controller to javafx.fxml;
 }
