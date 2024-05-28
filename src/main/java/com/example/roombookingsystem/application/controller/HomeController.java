@@ -1,8 +1,14 @@
 package com.example.roombookingsystem.application.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class HomeController {
     @FXML
@@ -49,5 +55,13 @@ public class HomeController {
 
     public void menuHomeClick(MouseEvent mouseEvent) {
         System.out.println("test");
+    }
+
+    public void btnBookClick(MouseEvent mouseEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/roombookingsystem/EmployeeBooking-view.fxml"));
+        Scene scene = new Scene(root, 555, 400);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 }
