@@ -24,11 +24,23 @@ public class SceneSwitcher {
         this.primaryStage = primaryStage;
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     public void switchScene(FxmlView view) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(view.getPath()));
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, view.getWidth(), view.getHeight());
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    public void createPopUp(FxmlView view) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(view.getPath()));
+        Scene scene = new Scene(root, view.getWidth(), view.getHeight());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
