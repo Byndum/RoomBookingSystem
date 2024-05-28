@@ -2,7 +2,10 @@ package com.example.roombookingsystem.application;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SceneSwitcher {
     private static SceneSwitcher instance;
@@ -21,8 +24,11 @@ public class SceneSwitcher {
         this.primaryStage = primaryStage;
     }
 
-    public void switchScene(String fxmlFilePath) {
-        Parent root = FXMLLoader.load(getClass().getResource())
+    public void switchScene(FxmlView view) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(view.getPath()));
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
 }
