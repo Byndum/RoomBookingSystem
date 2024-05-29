@@ -7,7 +7,7 @@ public class DBRepository implements DBDAO {
 
     private static ArrayList<Booking> todaysBookings = new ArrayList<>();
 
-    public static void createBooking(Booking booking) {
+    public void addBooking(Booking booking) {
         String query = "INSERT INTO tblBooking (fldTitle, fldDate, fldTimeStart, fldTimeEnd, fldCatering, fldRoomID) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBSingleton.getInstance();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -19,13 +19,22 @@ public class DBRepository implements DBDAO {
             pstmt.setInt(6, booking.getRoomID());
 
             pstmt.execute();
-            System.out.println("Is work!");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void updateTodaysBookingsArrayList() {
+    @Override
+    public Booking getBookingByID(int id) {
+        return null;
+    }
+
+    @Override
+    public void deleteBooking(int id) {
+
+    }
+
+    public void updateTodaysBookingsArrayList() {
         String query = "SELECT * FROM tblBooking";
         try (Connection connection = DBSingleton.getInstance();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
@@ -49,17 +58,31 @@ public class DBRepository implements DBDAO {
             throw new RuntimeException(e);
         }
     }
-    public static ArrayList<Booking> getBookingArray()
+    public ArrayList<Booking> getBookingArray()
     {
         return todaysBookings;
     }
 
-    public static void soutBookings()
+    public void soutBookings()
     {
-        DBRepository.updateTodaysBookingsArrayList();
-        for (Booking booking : DBRepository.getBookingArray())
+        updateTodaysBookingsArrayList();
+        for (Booking booking : getBookingArray())
         {
             System.out.println(booking.getBookingID() + ", " + booking.getTitle() + ", " + booking.getDate() + ", " + booking.getTime() + ", " + booking.getTimeEnd() + ", " + booking.isCatering() + ", " + booking.getUserID());
         }
+    }
+
+    @Override
+    public void updateBooking(Booking booking)
+    {
+        String query = "UPDATE tblBooking SET " +
+                "fldRoomID = (SELECT fldRoomID FROM tblRoom WHERE fldRoomName = " + booking.getRoomID() + "), " +
+                "fldDate = " + booking.getDate() + ", " +
+                "fldTimeStart = " + booking.getTime() + ", " +
+                "fldTimeEnd = " + booking.getTimeEnd() + ", " +
+                "fldCatering = " + booking.isCatering() + " " +
+                "WHERE fldBookId = " + booking.getBookingID();
+
+        System.out.println(query);
     }
 }
