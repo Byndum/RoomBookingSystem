@@ -17,7 +17,7 @@
       <StackPane fx:id="menuRegisterRoom" layoutY="414.0" prefHeight="102.5" prefWidth="270.0" />
       <StackPane fx:id="menuRegisterError" layoutY="516.0" prefHeight="102.5" prefWidth="270.0" />
       <StackPane fx:id="menuAllErrors" layoutY="618.0" prefHeight="102.0" prefWidth="270.0" />
-      <TableView layoutX="290.0" layoutY="420.0" prefHeight="290.0" prefWidth="980.0">
+      <TableView layoutX="290.0" layoutY="135.0" prefHeight="575.0" prefWidth="980.0">
         <columns>
           <TableColumn prefWidth="163.0" text="Lokale" />
           <TableColumn prefWidth="163.0" text="Titel" />
@@ -38,8 +38,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="292.0" layoutY="191.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="174.0" text="GRAF1" />
-      <Button layoutX="693.0" layoutY="191.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="174.0" text="GRAF2" />
-      <Button layoutX="1096.0" layoutY="191.0" mnemonicParsing="false" prefHeight="140.0" prefWidth="174.0" text="GRAF3" />
+      <Button layoutX="1165.0" layoutY="74.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="105.0" text="Bekræft ændring" />
    </children>
 </Pane>
