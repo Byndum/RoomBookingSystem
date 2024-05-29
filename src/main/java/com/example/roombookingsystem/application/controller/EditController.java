@@ -2,13 +2,18 @@ package com.example.roombookingsystem.application.controller;
 
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
-public class HomeController {
+public class EditController {
+    @FXML
+    private TableView tableViewBookings = new TableView();
     @FXML
     private StackPane menuHome;
     @FXML
@@ -34,24 +39,12 @@ public class HomeController {
         menuRegisterRoom.setStyle("-fx-background-color: #00adef");
         menuRegisterError.setStyle("-fx-background-color: #00adef");
         menuAllErrors.setStyle("-fx-background-color: #00adef");
+        //System.out.println(tableViewBookings.getColumns().get(1));
 
-        menuHome.setOnMouseClicked(mouseEvent -> {
-            System.out.println("pane has been clicked!");
-        });
-
-        menuHome.setOnMouseEntered(mouseEvent -> {
-            System.out.println("hover");
-            menuHome.setStyle("-fx-background-color: #00bfff");
-        });
-
-        menuHome.setOnMouseExited(mouseEvent -> {
-            System.out.println("no longer hover");
-            menuHome.setStyle("-fx-background-color: #00adef");
-            //menuHome.setStyle("-fx-background-color: #fcfcfc");
-        });
     }
-    public void menuHomeClick(MouseEvent mouseEvent) {
-        System.out.println("test");
+
+    public void menuHomeClick(MouseEvent mouseEvent) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
     }
 
     public void btnBookClick(MouseEvent mouseEvent) throws IOException {
@@ -60,5 +53,8 @@ public class HomeController {
 
     public void btnEditClick(MouseEvent mouseEvent) throws IOException {
         SceneSwitcher.getInstance().switchScene(FxmlView.EDIT);
+    }
+
+    public void btnConfirmClick(ActionEvent actionEvent) {
     }
 }
