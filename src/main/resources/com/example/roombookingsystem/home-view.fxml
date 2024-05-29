@@ -21,10 +21,11 @@
         <columns>
           <TableColumn prefWidth="163.0" text="Lokale" />
           <TableColumn prefWidth="163.0" text="Titel" />
-            <TableColumn prefWidth="163.0" text="Dato" />
-            <TableColumn prefWidth="163.0" text="Dag" />
-            <TableColumn prefWidth="163.0" text="Start" />
-            <TableColumn prefWidth="163.0" text="Slut" />
+            <TableColumn prefWidth="100.0" text="Dato" />
+            <TableColumn prefWidth="100.0" text="Dag" />
+            <TableColumn prefWidth="188.0" text="Start" />
+            <TableColumn prefWidth="188.0" text="Slut" />
+            <TableColumn prefWidth="77.0" text="Fejl" />
         </columns>
       </TableView>
       <Label layoutX="290.0" layoutY="80.0" text="Bruger :">
