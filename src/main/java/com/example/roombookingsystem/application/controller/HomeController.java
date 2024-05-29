@@ -50,7 +50,6 @@ public class HomeController {
             //menuHome.setStyle("-fx-background-color: #fcfcfc");
         });
     }
-
     public void menuHomeClick(MouseEvent mouseEvent) {
         System.out.println("test");
     }
