@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<Pane fx:id="MainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.roombookingsystem.application.controller.AdHocController">
+   <children>
+      <Label layoutX="14.0" layoutY="6.0" text="Book lokale" />
+      <Label layoutX="287.0" layoutY="6.0" text="Dato" />
+      <Label layoutX="555.0" layoutY="6.0" text="Tid" />
+      <Line endX="499.0" endY="-1.1444091796875E-5" layoutX="101.0" layoutY="27.0" startX="-100.0" />
+      <Pane fx:id="filterMenu" layoutY="294.0" prefHeight="106.0" prefWidth="600.0">
+         <children>
+            <MenuButton layoutX="68.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <Label layoutX="28.0" layoutY="18.0" text="Lokale" />
+            <MenuButton layoutX="280.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <Label layoutX="204.0" layoutY="18.0" text="Antal pladser" />
+            <MenuButton layoutX="457.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Action 2" />
+              </items>
+            </MenuButton>
+            <Label layoutX="420.0" layoutY="18.0" text="Tid fra" />
+            <CheckBox layoutX="82.0" layoutY="56.0" mnemonicParsing="false" text="Projektor" />
+            <CheckBox layoutX="172.0" layoutY="56.0" mnemonicParsing="false" text="Højtaler" />
+            <CheckBox layoutX="256.0" layoutY="56.0" mnemonicParsing="false" text="Bord-strøm" />
+            <CheckBox layoutX="353.0" layoutY="56.0" mnemonicParsing="false" text="Tavle" />
+            <Button layoutX="529.0" layoutY="73.0" mnemonicParsing="false" text="Anvend" />
+         </children>
+      </Pane>
+      <Button fx:id="filterButton" layoutX="535.0" layoutY="270.0" mnemonicParsing="false" text="Filtrer" />
+      <TableView fx:id="RoomsTableView" layoutX="-1.0" layoutY="28.0" prefHeight="240.0" prefWidth="600.0">
+        <columns>
+          <TableColumn prefWidth="106.20001524686813" text="Lokale" />
+          <TableColumn prefWidth="94.19998168945312" text="Tid" />
+            <TableColumn prefWidth="67.19999694824219" text="Fejl" />
+            <TableColumn prefWidth="67.19999694824219" text="Handling" />
+        </columns>
+      </TableView>
+   </children>
+</Pane>

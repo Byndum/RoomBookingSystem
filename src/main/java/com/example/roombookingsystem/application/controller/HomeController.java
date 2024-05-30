@@ -38,12 +38,10 @@ public class HomeController {
         menuHome.setOnMouseClicked(mouseEvent -> {
             System.out.println("pane has been clicked!");
         });
-
         menuHome.setOnMouseEntered(mouseEvent -> {
             System.out.println("hover");
             menuHome.setStyle("-fx-background-color: #00bfff");
         });
-
         menuHome.setOnMouseExited(mouseEvent -> {
             System.out.println("no longer hover");
             menuHome.setStyle("-fx-background-color: #00adef");

@@ -11,7 +11,7 @@ public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
         SceneSwitcher.getInstance().setPrimaryStage(stage);
-        SceneSwitcher.getInstance().switchScene(FxmlView.LOGIN);
+        SceneSwitcher.getInstance().switchScene(FxmlView.ADHOC);
     }
 
     public static void main(String[] args) {
