@@ -85,4 +85,7 @@ public class Booking {
         this.roomID = roomID;
         this.userID = userID;
     }
+    public Booking ()
+    {
+    }
 }
