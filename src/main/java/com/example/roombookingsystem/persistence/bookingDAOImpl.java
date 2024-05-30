@@ -5,7 +5,11 @@ import com.example.roombookingsystem.foundation.bookingDAO;
 import com.example.roombookingsystem.foundation.databaseConnection;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.time.LocalTime;
+import java.util.Locale;
 
 public class bookingDAOImpl implements bookingDAO {
 
@@ -17,7 +21,7 @@ public class bookingDAOImpl implements bookingDAO {
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, booking.getTitle());
             pstmt.setDate(2, booking.getDate());
-            pstmt.setTime(3, booking.getTime());
+            pstmt.setTime(3, booking.getTimeStart());
             pstmt.setTime(4, booking.getTimeEnd());
             pstmt.setBoolean(5, booking.isCatering());
             pstmt.setInt(6, booking.getRoomID());
@@ -98,9 +102,32 @@ public class bookingDAOImpl implements bookingDAO {
             throw new RuntimeException(e);
         }
     }
-    public ArrayList<Booking> getBookingArray()
-    {
-        return todaysBookings;
+
+    //Search query for looking at specific dates and rooms. Can be changed if needed.
+    public List<Booking> getBookingsForDateAndRoom(LocalDate date, int roomId){
+    String query = "SELECT * FROM tblBooking WHERE fldDate = ? AND fldRoomID = ?";
+    try (Connection connection = databaseConnection.getInstance();
+            PreparedStatement pstmt = connection.prepareStatement(query)) {
+        pstmt.setDate(1, Date.valueOf(date));
+        pstmt.setInt(2, roomId);
+        ResultSet rs = pstmt.executeQuery();
+
+        List<Booking> bookings = new ArrayList<>();
+        while(rs.next()){
+                Booking booking = new Booking();
+                booking.setTitle(rs.getString("fldTitle"));
+                booking.setDate(rs.getDate("fldDate"));
+                booking.setTime(rs.getTime("fldTimeStart"));
+                booking.setTime(rs.getTime("fldTimeEnd"));
+                bookings.add(booking);
+            }
+        {
+            return bookings;
+        }
+
+        } catch (SQLException e) {
+        throw new RuntimeException(e);
+        }
     }
 
 
@@ -119,7 +146,7 @@ public class bookingDAOImpl implements bookingDAO {
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1, booking.getRoomID());
             pstmt.setDate(2, booking.getDate());
-            pstmt.setTime(3, booking.getTime());
+            pstmt.setTime(3, booking.getTimeStart());
             pstmt.setTime(4, booking.getTimeEnd());
             pstmt.setBoolean(5, booking.isCatering());
             pstmt.setInt(6, booking.getUserID());
