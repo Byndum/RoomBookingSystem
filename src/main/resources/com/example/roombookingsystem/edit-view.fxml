@@ -19,13 +19,13 @@
       <StackPane fx:id="menuAllErrors" layoutY="618.0" prefHeight="102.0" prefWidth="270.0" />
       <TableView fx:id="tableviewBookings" layoutX="290.0" layoutY="135.0" prefHeight="575.0" prefWidth="980.0">
         <columns>
-          <TableColumn prefWidth="163.0" text="Lokale" />
-          <TableColumn prefWidth="163.0" text="Titel" />
-            <TableColumn prefWidth="100.0" text="Dato" />
-            <TableColumn prefWidth="100.0" text="Dag" />
-            <TableColumn prefWidth="188.0" text="Start" />
-            <TableColumn prefWidth="188.0" text="Slut" />
-            <TableColumn prefWidth="77.0" text="Fejl" />
+          <TableColumn fx:id="tcRoomName" prefWidth="163.0" text="Lokale" />
+          <TableColumn fx:id="tcTitle" prefWidth="163.0" text="Titel" />
+            <TableColumn fx:id="tcDate" prefWidth="100.0" text="Dato" />
+            <TableColumn fx:id="tcDay" prefWidth="100.0" text="Dag" />
+            <TableColumn fx:id="tcTimeStart" prefWidth="188.0" text="Start" />
+            <TableColumn fx:id="tcTimeEnd" prefWidth="188.0" text="Slut" />
+            <TableColumn fx:id="tcErrors" prefWidth="77.0" text="Fejl" />
         </columns>
       </TableView>
       <Label layoutX="290.0" layoutY="80.0" text="Bruger :">
