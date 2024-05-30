@@ -43,10 +43,10 @@
       <Button fx:id="filterButton" layoutX="535.0" layoutY="270.0" mnemonicParsing="false" text="Filtrer" />
       <TableView fx:id="RoomsTableView" layoutX="-1.0" layoutY="28.0" prefHeight="240.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="106.20001524686813" text="Lokale" />
-          <TableColumn prefWidth="94.19998168945312" text="Tid" />
-            <TableColumn prefWidth="67.19999694824219" text="Fejl" />
-            <TableColumn prefWidth="67.19999694824219" text="Handling" />
+          <TableColumn fx:id="LokaleColumn" prefWidth="106.20001524686813" text="Lokale" />
+          <TableColumn fx:id="TidColumn" prefWidth="94.19998168945312" text="Tid" />
+            <TableColumn fx:id="FejlColumn" prefWidth="67.19999694824219" text="Fejl" />
+            <TableColumn fx:id="HandlingColumn" prefWidth="116.19998168945312" text="Handling" />
         </columns>
       </TableView>
    </children>
