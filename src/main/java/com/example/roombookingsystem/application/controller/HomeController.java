@@ -9,6 +9,7 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
 public class HomeController {
+    //region FXML declarations
     @FXML
     private StackPane menuHome;
     @FXML
@@ -23,6 +24,7 @@ public class HomeController {
     private StackPane menuRegisterError;
     @FXML
     private StackPane menuAllErrors;
+    //endregion
 
     @FXML
     public void initialize() {
