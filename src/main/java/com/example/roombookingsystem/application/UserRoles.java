@@ -1,18 +1,24 @@
 package com.example.roombookingsystem.application;
 
-public enum UserRoles {
-    GUEST(2),
-    STUDENT(5),
-    EMPLOYEE(3),
-    MAINTENANCESTAFF(4),
-    ADMIN(1);
+import java.util.HashMap;
 
-    private int id;
-
-    UserRoles(int id) {
-        this.id = id;
+public class UserRoles {
+    public enum ROLESLIST
+    {
+        STUDENT,
+        EMPLOYEE,
+        MAINTENANCESTAFF,
+        ADMIN;
     }
-    public int getId() {
-        return this.id;
+
+    private static HashMap<Integer, ROLESLIST> idToList = new HashMap<Integer, ROLESLIST>(){{
+        put(1, ROLESLIST.ADMIN);
+        put(3, ROLESLIST.EMPLOYEE);
+        put(4, ROLESLIST.MAINTENANCESTAFF);
+        put(5, ROLESLIST.STUDENT);
+    }};
+
+    public static ROLESLIST getRole(int roleID) {
+        return idToList.get(roleID);
     }
 }

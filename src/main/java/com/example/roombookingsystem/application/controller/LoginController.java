@@ -29,18 +29,20 @@ public class LoginController {
     public void btnLoginClick(MouseEvent mouseEvent) throws IOException, SQLException {
         Login.getInstance().login(tfUsername.getText(), tfPassword.getText());
         int loginId = Login.getInstance().getLoginID();
-//        switch (Login.getInstance().getLoginID()) {
-//            case UserRoles.ADMIN.getId():
-//                break;
-//            case UserRoles.GUEST.getId():
-//                break;
-//            default:
-//                break;
-//        }
-
-        if (loginId == UserRoles.ADMIN.getId()) {
-            System.out.println("YAY it worked!");
+        switch (UserRoles.getRole(loginId)) {
+            case ADMIN:
+                break;
+            case EMPLOYEE:
+                break;
+            case MAINTENANCESTAFF:
+                break;
+            case STUDENT:
+                break;
         }
+
+//        if (loginId == UserRoles.ADMIN.getId()) {
+//            System.out.println("YAY it worked!");
+//        }
 
         SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
         SceneSwitcher.getInstance().getPrimaryStage().centerOnScreen();
