@@ -1,15 +1,19 @@
-package com.example.roombookingsystem.foundation;
+package com.example.roombookingsystem.persistence;
+
+import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.foundation.bookingDAO;
+import com.example.roombookingsystem.foundation.databaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class DBRepository implements DBDAO {
+public class bookingDAOImpl implements bookingDAO {
 
     private static ArrayList<Booking> todaysBookings = new ArrayList<>();
 
     public void addBooking(Booking booking) {
-        String query = "INSERT INTO tblBooking (fldTitle, fldDate, fldTimeStart, fldTimeEnd, fldCatering, fldRoomID) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection connection = DBSingleton.getInstance();
+        String query = "INSERT INTO tblBooking (fldTitle, fldDate, fldTimeStart, fldTimeEnd, fldCatering, fldRoomID, fldUserID) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (Connection connection = databaseConnection.getInstance();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setString(1, booking.getTitle());
             pstmt.setDate(2, booking.getDate());
@@ -17,6 +21,7 @@ public class DBRepository implements DBDAO {
             pstmt.setTime(4, booking.getTimeEnd());
             pstmt.setBoolean(5, booking.isCatering());
             pstmt.setInt(6, booking.getRoomID());
+            pstmt.setInt(7, booking.getUserID());
 
             pstmt.execute();
         } catch (SQLException e) {
@@ -36,7 +41,7 @@ public class DBRepository implements DBDAO {
 
     public void updateTodaysBookingsArrayList() {
         String query = "SELECT * FROM tblBooking";
-        try (Connection connection = DBSingleton.getInstance();
+        try (Connection connection = databaseConnection.getInstance();
              PreparedStatement pstmt = connection.prepareStatement(query)) {
 
             ResultSet resultSet = pstmt.executeQuery();
@@ -63,14 +68,6 @@ public class DBRepository implements DBDAO {
         return todaysBookings;
     }
 
-    public void soutBookings()
-    {
-        updateTodaysBookingsArrayList();
-        for (Booking booking : getBookingArray())
-        {
-            System.out.println(booking.getBookingID() + ", " + booking.getTitle() + ", " + booking.getDate() + ", " + booking.getTime() + ", " + booking.getTimeEnd() + ", " + booking.isCatering() + ", " + booking.getUserID());
-        }
-    }
 
     @Override
     public void updateBooking(Booking booking)
