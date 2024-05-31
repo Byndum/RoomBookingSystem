@@ -7,6 +7,7 @@ import com.example.roombookingsystem.foundation.Login;
 import com.example.roombookingsystem.foundation.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
@@ -19,15 +20,15 @@ public class LoginController {
     @FXML
     TextField tfUsername;
     @FXML
-    TextField tfPassword;
-
+    PasswordField pfPassword;
     @FXML
     public void initialize() {
 
     }
 
     public void btnLoginClick(MouseEvent mouseEvent) throws IOException, SQLException {
-        Login.getInstance().login(tfUsername.getText(), tfPassword.getText());
+        Login.getInstance().login(tfUsername.getText(), pfPassword.getText());
+        System.out.println(pfPassword.getText());
         int loginId = Login.getInstance().getLoginID();
         switch (UserRoles.getRole(loginId)) {
             case ADMIN:
