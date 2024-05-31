@@ -7,7 +7,7 @@ public enum FxmlView {
     HOMEEMPLOYEE("/com/example/roombookingsystem/homeEmployee-view.fxml",1280,720),
     EMPLOYEEBOOKING("/com/example/roombookingsystem/employeeBooking-view.fxml",555,400),
     EDIT("/com/example/roombookingsystem/edit-view.fxml",1280,720),
-    ADHOC("/com/example/roombookingsystem/adHoc-view.fxml",600,400);
+    ADHOC("/com/example/roombookingsystem/ad-Hoc-view.fxml",600,400);
 
 
     private final String path;

@@ -12,7 +12,7 @@
       <Line endX="499.0" endY="-1.1444091796875E-5" layoutX="101.0" layoutY="27.0" startX="-100.0" />
       <Pane fx:id="filterMenu" layoutY="294.0" prefHeight="106.0" prefWidth="600.0">
          <children>
-            <MenuButton layoutX="68.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
+            <MenuButton fx:id="LokaleFilter" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -26,10 +26,18 @@
               </items>
             </MenuButton>
             <Label layoutX="204.0" layoutY="18.0" text="Antal pladser" />
-            <MenuButton layoutX="457.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
+            <MenuButton fx:id="TidFilter" layoutX="457.0" layoutY="14.0" mnemonicParsing="false" text="MenuButton">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
+                <MenuItem mnemonicParsing="false" text="Alle tider" />
+                <MenuItem mnemonicParsing="false" text="08:00" />
+                  <MenuItem mnemonicParsing="false" text="08:15" />
+                  <MenuItem mnemonicParsing="false" text="08:30" />
+                  <MenuItem mnemonicParsing="false" text="08:45" />
+                  <MenuItem mnemonicParsing="false" text="09:00" />
+                  <MenuItem mnemonicParsing="false" text="09:15" />
+                  <MenuItem mnemonicParsing="false" text="09:30" />
+                  <MenuItem mnemonicParsing="false" text="09:45" />
+                  <MenuItem mnemonicParsing="false" text="10:00" />
               </items>
             </MenuButton>
             <Label layoutX="420.0" layoutY="18.0" text="Tid fra" />
