@@ -3,16 +3,14 @@ package com.example.roombookingsystem.application.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import com.example.roombookingsystem.foundation.ObservableRoomTest;
 
-public class AdHocController {
+import java.util.stream.Collectors;
 
+public class AdHocController {
     @FXML
     Pane MainPane;
     @FXML
@@ -23,6 +21,10 @@ public class AdHocController {
     Label DatoLabel;
     @FXML
     Label ClockLabel;
+    @FXML
+    MenuButton LokaleFilter;
+    @FXML
+    MenuButton TidFilter;
     @FXML
     TableView<ObservableRoomTest> RoomsTableView;
     @FXML
@@ -36,7 +38,8 @@ public class AdHocController {
 
     ObservableList<ObservableRoomTest> data = FXCollections.observableArrayList(
              new ObservableRoomTest("306", "09:45-12:00", "ingen fejl", "book"),
-             new ObservableRoomTest("306", "13:15-14:00", "ingen fejl", "book")
+             new ObservableRoomTest("306", "13:15-14:00", "ingen fejl", "book"),
+            new ObservableRoomTest("406", "13:15-14:00", "ingen fejl", "book")
     );
     public void initialize() {
         DatoLabel.setText(java.time.LocalDate.now().toString());
@@ -62,5 +65,44 @@ public class AdHocController {
                 RoomsTableView.setPrefHeight(340);
             }
         });
+        populateLokaleFilter();
+        populateTidFilter();
+    }
+    private void populateLokaleFilter() {
+        LokaleFilter.getItems().clear();
+        LokaleFilter.getItems().add(new MenuItem("Alle Lokaler"));
+        data.stream()
+                .map(ObservableRoomTest::getLokaleNavn)
+                .distinct()
+                .forEach(lokale -> {
+                    MenuItem menuItem = new MenuItem(lokale);
+                    menuItem.setOnAction(event -> filterByRoom(lokale));
+                    LokaleFilter.getItems().add(menuItem);
+                });
+        LokaleFilter.getItems().get(0).setOnAction(event -> RoomsTableView.setItems(data));  // all
+    }
+    private void filterByRoom(String roomNumber) {
+        ObservableList<ObservableRoomTest> filteredData = data.stream()
+                .filter(room -> room.getLokaleNavn().equals(roomNumber))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        RoomsTableView.setItems(filteredData);
+    }
+    private void populateTidFilter() {
+        TidFilter.getItems().forEach(menuItem -> {
+            menuItem.setOnAction(event -> {
+                String time = menuItem.getText();
+                if ("Alle tider".equals(time)) {
+                    RoomsTableView.setItems(data);
+                } else {
+                    filterByTime(time);
+                }
+            });
+        });
+    }
+    private void filterByTime(String time) {
+        ObservableList<ObservableRoomTest> filteredData = data.stream()
+                .filter(room -> room.getTid().startsWith(time))
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        RoomsTableView.setItems(filteredData);
     }
 }
