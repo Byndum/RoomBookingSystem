@@ -2,10 +2,10 @@ package com.example.roombookingsystem.application;
 
 public enum FxmlView {
     LOGIN("/com/example/roombookingsystem/login-view.fxml",300,210),
-    HOME("/com/example/roombookingsystem/home-view.fxml",1280,720),
+    HOME("/com/example/roombookingsystem/homeAdmin-view.fxml",1280,720),
     EMPLOYEEBOOKING("/com/example/roombookingsystem/employeeBooking-view.fxml",555,400),
     EDIT("/com/example/roombookingsystem/edit-view.fxml",1280,720),
-    ADHOC("/com/example/roombookingsystem/AdHoc-view.fxml",600,400);
+    ADHOC("/com/example/roombookingsystem/adHoc-view.fxml",600,400);
 
 
     private final String path;
