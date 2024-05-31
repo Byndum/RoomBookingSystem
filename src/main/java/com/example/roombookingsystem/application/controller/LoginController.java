@@ -28,24 +28,23 @@ public class LoginController {
 
     public void btnLoginClick(MouseEvent mouseEvent) throws IOException, SQLException {
         Login.getInstance().login(tfUsername.getText(), pfPassword.getText());
-        System.out.println(pfPassword.getText());
         int loginId = Login.getInstance().getLoginID();
         switch (UserRoles.getRole(loginId)) {
             case ADMIN:
+                SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
+                SceneSwitcher.getInstance().getPrimaryStage().centerOnScreen();
                 break;
             case EMPLOYEE:
+                SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
+                SceneSwitcher.getInstance().getPrimaryStage().centerOnScreen();
                 break;
             case MAINTENANCESTAFF:
+                SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
+                SceneSwitcher.getInstance().getPrimaryStage().centerOnScreen();
                 break;
-            case STUDENT:
+            default:
+                System.out.println("Kode eller brugernavn ikke korrekt!");
                 break;
         }
-
-//        if (loginId == UserRoles.ADMIN.getId()) {
-//            System.out.println("YAY it worked!");
-//        }
-
-        SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
-        SceneSwitcher.getInstance().getPrimaryStage().centerOnScreen();
     }
 }
