@@ -31,15 +31,15 @@ public class LoginController {
         int loginId = Login.getInstance().getLoginID();
         switch (UserRoles.getRole(loginId)) {
             case ADMIN:
-                SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
+                SceneSwitcher.getInstance().switchScene(FxmlView.HOMEADMIN);
                 SceneSwitcher.getInstance().getPrimaryStage().centerOnScreen();
                 break;
             case EMPLOYEE:
-                SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
+                SceneSwitcher.getInstance().switchScene(FxmlView.HOMEEMPLOYEE);
                 SceneSwitcher.getInstance().getPrimaryStage().centerOnScreen();
                 break;
             case MAINTENANCESTAFF:
-                SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
+                SceneSwitcher.getInstance().switchScene(FxmlView.HOMEMANINTENANCESTAFF);
                 SceneSwitcher.getInstance().getPrimaryStage().centerOnScreen();
                 break;
             default:

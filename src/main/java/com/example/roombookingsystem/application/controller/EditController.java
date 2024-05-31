@@ -78,7 +78,7 @@ public class EditController {
     }
 
     public void menuHomeClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.HOME);
+        SceneSwitcher.getInstance().switchScene(FxmlView.HOMEADMIN);
     }
 
     public void btnBookClick(MouseEvent mouseEvent) throws IOException {

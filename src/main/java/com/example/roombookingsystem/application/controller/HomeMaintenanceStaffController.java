@@ -8,7 +8,7 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
-public class HomeController {
+public class HomeMaintenanceStaffController {
     //region FXML declarations
     @FXML
     private StackPane menuHome;
@@ -19,9 +19,7 @@ public class HomeController {
     @FXML
     private StackPane menuHistory;
     @FXML
-    private StackPane menuRegisterRoom;
-    @FXML
-    private StackPane menuRegisterError;
+    private StackPane menuMyErrors;
     @FXML
     private StackPane menuAllErrors;
     //endregion
@@ -33,8 +31,7 @@ public class HomeController {
         menuBook.setStyle("-fx-background-color: #00adef");
         menuEdit.setStyle("-fx-background-color: #00adef");
         menuHistory.setStyle("-fx-background-color: #00adef");
-        menuRegisterRoom.setStyle("-fx-background-color: #00adef");
-        menuRegisterError.setStyle("-fx-background-color: #00adef");
+        menuMyErrors.setStyle("-fx-background-color: #00adef");
         menuAllErrors.setStyle("-fx-background-color: #00adef");
 
         menuHome.setOnMouseClicked(mouseEvent -> {
