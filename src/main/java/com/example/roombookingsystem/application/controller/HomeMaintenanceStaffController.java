@@ -47,8 +47,8 @@ public class HomeMaintenanceStaffController {
             //menuHome.setStyle("-fx-background-color: #fcfcfc");
         });
     }
-    public void menuHomeClick(MouseEvent mouseEvent) {
-        System.out.println("test");
+    public void menuHomeClick(MouseEvent mouseEvent) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.HOMEMANINTENANCESTAFF);
     }
 
     public void btnBookClick(MouseEvent mouseEvent) throws IOException {
@@ -56,6 +56,6 @@ public class HomeMaintenanceStaffController {
     }
 
     public void btnEditClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.EDIT);
+        SceneSwitcher.getInstance().switchScene(FxmlView.EDITMAINTENANCESTAFF);
     }
 }

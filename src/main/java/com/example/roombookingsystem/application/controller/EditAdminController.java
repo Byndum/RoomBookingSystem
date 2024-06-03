@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import java.io.IOException;
 
-public class EditController {
+public class EditAdminController {
     //region FXML declarations
     @FXML
     private TableView<ObservableBooking> tableviewBookings;
@@ -43,7 +43,7 @@ public class EditController {
     @FXML
     private StackPane menuRegisterRoom;
     @FXML
-    private StackPane menuRegisterError;
+    private StackPane menuMyErrors;
     @FXML
     private StackPane menuAllErrors;
     //endregion
@@ -64,7 +64,7 @@ public class EditController {
         menuEdit.setStyle("-fx-background-color: #00adef");
         menuHistory.setStyle("-fx-background-color: #00adef");
         menuRegisterRoom.setStyle("-fx-background-color: #00adef");
-        menuRegisterError.setStyle("-fx-background-color: #00adef");
+        menuMyErrors.setStyle("-fx-background-color: #00adef");
         menuAllErrors.setStyle("-fx-background-color: #00adef");
 
         tcRoomName.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("roomName"));
@@ -85,7 +85,7 @@ public class EditController {
     }
 
     public void btnEditClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.EDIT);
+        SceneSwitcher.getInstance().switchScene(FxmlView.EDITADMIN);
     }
 
     public void btnConfirmClick(ActionEvent actionEvent) {
