@@ -73,7 +73,7 @@ public class bookingDAOImpl implements bookingDAO {
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
-        throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -155,7 +155,7 @@ public class bookingDAOImpl implements bookingDAO {
             pstmt.execute();
 
         } catch (SQLException e) {
-        throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }

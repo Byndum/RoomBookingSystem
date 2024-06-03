@@ -8,7 +8,8 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
-public class HomeController {
+public class HomeMaintenanceStaffController {
+    //region FXML declarations
     @FXML
     private StackPane menuHome;
     @FXML
@@ -18,11 +19,10 @@ public class HomeController {
     @FXML
     private StackPane menuHistory;
     @FXML
-    private StackPane menuRegisterRoom;
-    @FXML
-    private StackPane menuRegisterError;
+    private StackPane menuMyErrors;
     @FXML
     private StackPane menuAllErrors;
+    //endregion
 
     @FXML
     public void initialize() {
@@ -31,27 +31,24 @@ public class HomeController {
         menuBook.setStyle("-fx-background-color: #00adef");
         menuEdit.setStyle("-fx-background-color: #00adef");
         menuHistory.setStyle("-fx-background-color: #00adef");
-        menuRegisterRoom.setStyle("-fx-background-color: #00adef");
-        menuRegisterError.setStyle("-fx-background-color: #00adef");
+        menuMyErrors.setStyle("-fx-background-color: #00adef");
         menuAllErrors.setStyle("-fx-background-color: #00adef");
 
         menuHome.setOnMouseClicked(mouseEvent -> {
             System.out.println("pane has been clicked!");
         });
-
         menuHome.setOnMouseEntered(mouseEvent -> {
             System.out.println("hover");
             menuHome.setStyle("-fx-background-color: #00bfff");
         });
-
         menuHome.setOnMouseExited(mouseEvent -> {
             System.out.println("no longer hover");
             menuHome.setStyle("-fx-background-color: #00adef");
             //menuHome.setStyle("-fx-background-color: #fcfcfc");
         });
     }
-    public void menuHomeClick(MouseEvent mouseEvent) {
-        System.out.println("test");
+    public void menuHomeClick(MouseEvent mouseEvent) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.HOMEMANINTENANCESTAFF);
     }
 
     public void btnBookClick(MouseEvent mouseEvent) throws IOException {
@@ -59,6 +56,6 @@ public class HomeController {
     }
 
     public void btnEditClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.EDIT);
+        SceneSwitcher.getInstance().switchScene(FxmlView.EDITMAINTENANCESTAFF);
     }
 }
