@@ -8,10 +8,10 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
-public class HomeAdminController {
+public class BookingHistoryAdminController {
     //region FXML declarations
     @FXML
-    private StackPane menuHome;
+    private StackPane menuAllErrors;
     @FXML
     private StackPane menuBook;
     @FXML
@@ -19,15 +19,31 @@ public class HomeAdminController {
     @FXML
     private StackPane menuHistory;
     @FXML
-    private StackPane menuRegisterRoom;
+    private StackPane menuHome;
     @FXML
     private StackPane menuMyErrors;
     @FXML
-    private StackPane menuAllErrors;
+    private StackPane menuRegisterRoom;
     //endregion
-
+    @FXML
+    void btnBookClick(MouseEvent event) throws IOException {
+        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING);
+    }
+    @FXML
+    void btnEditClick(MouseEvent event) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.EDITADMIN);
+    }
+    @FXML
+    void btnHistoryClick(MouseEvent event) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSADMIN);
+    }
+    @FXML
+    void menuHomeClick(MouseEvent event) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.HOMEADMIN);
+    }
     @FXML
     public void initialize() {
+        //region Set initial colors for the side-menubar
         menuHome.setStyle("-fx-background-color: #00adef");
         menuBook.setStyle("-fx-background-color: #00adef");
         menuEdit.setStyle("-fx-background-color: #00adef");
@@ -35,7 +51,7 @@ public class HomeAdminController {
         menuRegisterRoom.setStyle("-fx-background-color: #00adef");
         menuMyErrors.setStyle("-fx-background-color: #00adef");
         menuAllErrors.setStyle("-fx-background-color: #00adef");
-
+        //endregion
         //region MouseEntered + MouseExited
         menuHome.setOnMouseEntered(mouseEvent -> {
             System.out.println("hover");
@@ -102,19 +118,5 @@ public class HomeAdminController {
         });
         //endregion
     }
-    public void menuHomeClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.HOMEADMIN);
-    }
 
-    public void btnBookClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING);
-    }
-
-    public void btnEditClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.EDITADMIN);
-    }
-
-    public void btnHistoryClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSADMIN);
-    }
 }
