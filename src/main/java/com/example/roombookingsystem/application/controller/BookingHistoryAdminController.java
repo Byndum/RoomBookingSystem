@@ -4,7 +4,7 @@ import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.Booking;
 import com.example.roombookingsystem.foundation.ObservableBooking;
-import com.example.roombookingsystem.persistence.bookingDAOImpl;
+import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -145,7 +145,7 @@ public class BookingHistoryAdminController {
         tcTitle.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("title"));
         tcDate.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("date"));
         tcDay.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("day"));
-        tcTimeStart.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("time"));
+        tcTimeStart.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("timeStart"));
         tcTimeEnd.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("timeEnd"));
         tcErrors.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("errors"));
 

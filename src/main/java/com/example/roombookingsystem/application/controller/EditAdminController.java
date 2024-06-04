@@ -157,4 +157,8 @@ public class EditAdminController {
     public void btnConfirmClick(ActionEvent actionEvent) {
         tableviewBookings.setItems(data);
     }
+
+    public void btnHistoryClick(MouseEvent mouseEvent) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSADMIN);
+    }
 }
