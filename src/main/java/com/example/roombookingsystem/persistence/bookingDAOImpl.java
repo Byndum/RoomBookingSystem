@@ -6,6 +6,7 @@ import com.example.roombookingsystem.foundation.databaseConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Date;
 
 public class bookingDAOImpl implements bookingDAO {
 
@@ -30,36 +31,6 @@ public class bookingDAOImpl implements bookingDAO {
     }
 
     @Override
-    public Booking getBookingByID(int id) {
-        String query = "SELECT * FROM tblBooking WHERE fldBookId = ?";
-        try (Connection connection = databaseConnection.getInstance();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
-            pstmt.setInt(1, id);
-
-            ResultSet resultSet = pstmt.executeQuery();
-            Booking booking = new Booking();
-            while (resultSet.next())
-            {
-                booking.setBookingID(resultSet.getInt(1));
-                booking.setTitle(resultSet.getString(2));
-                booking.setDate(resultSet.getDate(3));
-                booking.setTime(resultSet.getTime(4));
-                booking.setTimeEnd(resultSet.getTime(5));
-                booking.setCatering(resultSet.getBoolean(6));
-                booking.setRoomID(resultSet.getInt(7));
-                booking.setUserID(resultSet.getInt(8));
-
-            }
-            resultSet.close();
-            connection.close();
-
-            return booking;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public void deleteBooking(int id) {
         String query = "DELETE FROM tblBooking WHERE fldBookId = ?";
         try (Connection connection = databaseConnection.getInstance();
@@ -68,6 +39,34 @@ public class bookingDAOImpl implements bookingDAO {
 
             pstmt.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Override
+    public ArrayList<Booking> getBookingsByID(int id) {
+        ArrayList<Booking> array = new ArrayList<>();
+        String query = "SELECT * FROM tblBooking WHERE fldUserID = ?";
+        try (Connection connection = databaseConnection.getInstance()) {
+
+            PreparedStatement pstmt = connection.prepareStatement(query);
+            pstmt.setInt(1, id);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next())
+            {
+                Booking booking = new Booking(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDate(3),
+                        resultSet.getTime(4),
+                        resultSet.getTime(5),
+                        resultSet.getBoolean(6),
+                        resultSet.getInt(7),
+                        resultSet.getInt(8));
+                array.add(booking);
+            }
+            return array;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
