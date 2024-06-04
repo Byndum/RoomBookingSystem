@@ -52,13 +52,13 @@ public class bookingDAOImpl implements bookingDAO {
         }
     }
     @Override
-    public ArrayList<Booking> getBookingsByID(int id) {
+    public ArrayList<Booking> getBookingsByID(int userID) {
         ArrayList<Booking> array = new ArrayList<>();
-        String query = "SELECT * FROM tblBooking WHERE fldUserID = ?";
+        String query = "SELECT tblBooking.*, tblRoom.fldRoomName FROM tblBooking JOIN tblRoom ON tblBooking.fldRoomID = tblRoom.fldRoomID WHERE fldUserID = ?";
         try {
             Connection connection = databaseConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, userID);
 
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next())
@@ -71,6 +71,7 @@ public class bookingDAOImpl implements bookingDAO {
                         resultSet.getTime(5),
                         resultSet.getBoolean(6),
                         resultSet.getInt(7),
+                        resultSet.getString(9),
                         resultSet.getInt(8));
                 array.add(booking);
             }
@@ -81,7 +82,7 @@ public class bookingDAOImpl implements bookingDAO {
     }
 
     public void updateTodaysBookingsArrayList() {
-        String query = "SELECT * FROM tblBooking";
+        String query = "SELECT tblBooking.*, tblRoom.fldRoomName FROM tblBooking JOIN tblRoom ON tblBooking.fldRoomID = tblRoom.fldRoomID";
         try {
             Connection connection = databaseConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
@@ -97,8 +98,8 @@ public class bookingDAOImpl implements bookingDAO {
                         resultSet.getTime(5),
                         resultSet.getBoolean(6),
                         resultSet.getInt(7),
-                        resultSet.getInt(8)
-                ));
+                        resultSet.getString(9),
+                        resultSet.getInt(8)));
             }
             resultSet.close();
 

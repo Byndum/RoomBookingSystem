@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface bookingDAO {
     void addBooking(Booking booking);
-    ArrayList<Booking> getBookingsByID(int id);
+    ArrayList<Booking> getBookingsByID(int userID);
     void updateBooking(Booking booking);
     void deleteBooking(int id);
     List<Booking> getBookingsForDateAndRoom(LocalDate date, int roomId) throws SQLException;
