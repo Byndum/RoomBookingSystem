@@ -18,8 +18,10 @@ public class bookingDAOImpl implements bookingDAO {
 
     public void addBooking(Booking booking) {
         String query = "INSERT INTO tblBooking (fldTitle, fldDate, fldTimeStart, fldTimeEnd, fldCatering, fldRoomID, fldUserID) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try (Connection connection = databaseConnection.getInstance();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try {
+            Connection connection = databaseConnection.getInstance();
+            PreparedStatement pstmt = connection.prepareStatement(query);
+
             pstmt.setString(1, booking.getTitle());
             pstmt.setDate(2, booking.getDate());
             pstmt.setTime(3, booking.getTimeStart());
@@ -37,8 +39,10 @@ public class bookingDAOImpl implements bookingDAO {
     @Override
     public void deleteBooking(int id) {
         String query = "DELETE FROM tblBooking WHERE fldBookId = ?";
-        try (Connection connection = databaseConnection.getInstance();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try {
+            Connection connection = databaseConnection.getInstance();
+            PreparedStatement pstmt = connection.prepareStatement(query);
+
             pstmt.setInt(1, id);
 
             pstmt.executeUpdate();
@@ -51,8 +55,8 @@ public class bookingDAOImpl implements bookingDAO {
     public ArrayList<Booking> getBookingsByID(int id) {
         ArrayList<Booking> array = new ArrayList<>();
         String query = "SELECT * FROM tblBooking WHERE fldUserID = ?";
-        try (Connection connection = databaseConnection.getInstance()) {
-
+        try {
+            Connection connection = databaseConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, id);
 
@@ -78,8 +82,9 @@ public class bookingDAOImpl implements bookingDAO {
 
     public void updateTodaysBookingsArrayList() {
         String query = "SELECT * FROM tblBooking";
-        try (Connection connection = databaseConnection.getInstance();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try {
+            Connection connection = databaseConnection.getInstance();
+            PreparedStatement pstmt = connection.prepareStatement(query);
 
             ResultSet resultSet = pstmt.executeQuery();
             while (resultSet.next())
@@ -105,8 +110,10 @@ public class bookingDAOImpl implements bookingDAO {
     //Search query for looking at specific dates and rooms. Can be changed if needed.
     public List<Booking> getBookingsForDateAndRoom(LocalDate date, int roomId){
     String query = "SELECT * FROM tblBooking WHERE fldDate = ? AND fldRoomID = ?";
-    try (Connection connection = databaseConnection.getInstance();
-            PreparedStatement pstmt = connection.prepareStatement(query)) {
+    try {
+        Connection connection = databaseConnection.getInstance();
+        PreparedStatement pstmt = connection.prepareStatement(query);
+
         pstmt.setDate(1, Date.valueOf(date));
         pstmt.setInt(2, roomId);
         ResultSet rs = pstmt.executeQuery();
@@ -141,8 +148,10 @@ public class bookingDAOImpl implements bookingDAO {
                 "fldUserID = ?" +
                 " WHERE fldBookId = ?";
 
-        try (Connection connection = databaseConnection.getInstance();
-             PreparedStatement pstmt = connection.prepareStatement(query)) {
+        try {
+            Connection connection = databaseConnection.getInstance();
+            PreparedStatement pstmt = connection.prepareStatement(query);
+
             pstmt.setInt(1, booking.getRoomID());
             pstmt.setDate(2, booking.getDate());
             pstmt.setTime(3, booking.getTimeStart());
