@@ -1,5 +1,6 @@
 package com.example.roombookingsystem.services;
 import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.foundation.Room;
 import com.example.roombookingsystem.foundation.bookingDAO;
 import com.example.roombookingsystem.domain.TimeSlot;
 
@@ -15,18 +16,17 @@ import java.util.List;
 public class BookingService {
     private bookingDAO bookingDAO;
 
-
     public void exportBookedHistoryToCSV (String filePath) throws SQLException, IOException{
-        List<Booking> bookings = bookingDAO.getBookingsByID();
+        List<Booking> bookings = bookingDAO.getBookingsByID(2);
 
         try (FileWriter writer = new FileWriter(filePath)) {
-            writer.append("ID");
+            writer.append("Title,Room,Date,TimeStart,TimeEnd\n");
                 for (Booking booking : bookings){
-                    writer.append(String.valueOf(booking.getTitle()));
-                    writer.append(String.valueOf(booking.getRoomID()));
-                    writer.append(String.valueOf(booking.getDate()));
-                    writer.append(String.valueOf(booking.getTimeStart()));
-                    writer.append(String.valueOf(booking.getTimeEnd()));
+                    writer.append(String.valueOf(booking.getTitle())).append(',');
+                    writer.append(String.valueOf(booking.getRoomID())).append(',');
+                    writer.append(String.valueOf(booking.getDate())).append(',');
+                    writer.append(String.valueOf(booking.getTimeStart())).append(',');
+                    writer.append(String.valueOf(booking.getTimeEnd())).append(',');
 
                 }
         }
