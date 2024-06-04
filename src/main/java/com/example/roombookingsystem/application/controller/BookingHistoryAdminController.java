@@ -2,7 +2,15 @@ package com.example.roombookingsystem.application.controller;
 
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
+import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.foundation.ObservableBooking;
+import com.example.roombookingsystem.persistence.bookingDAOImpl;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
@@ -10,6 +18,22 @@ import java.io.IOException;
 
 public class BookingHistoryAdminController {
     //region FXML declarations
+    @FXML
+    private TableView<Booking> tableviewBookings;
+    @FXML
+    private TableColumn<ObservableBooking, String> tcRoomName;
+    @FXML
+    private TableColumn<ObservableBooking, String> tcTitle;
+    @FXML
+    private TableColumn<ObservableBooking, String> tcDate;
+    @FXML
+    private TableColumn<ObservableBooking, String> tcDay;
+    @FXML
+    private TableColumn<ObservableBooking, String> tcTimeStart;
+    @FXML
+    private TableColumn<ObservableBooking, String> tcTimeEnd;
+    @FXML
+    private TableColumn<ObservableBooking, String> tcErrors;
     @FXML
     private StackPane menuAllErrors;
     @FXML
@@ -117,6 +141,19 @@ public class BookingHistoryAdminController {
             //menuHome.setStyle("-fx-background-color: #fcfcfc");
         });
         //endregion
-    }
+        tcRoomName.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("roomName"));
+        tcTitle.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("title"));
+        tcDate.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("date"));
+        tcDay.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("day"));
+        tcTimeStart.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("time"));
+        tcTimeEnd.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("timeEnd"));
+        tcErrors.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("errors"));
 
+        populateTableview();
+    }
+    public void populateTableview() {
+        bookingDAOImpl bDao = new bookingDAOImpl();
+        ObservableList<Booking> list = FXCollections.observableArrayList(bDao.getBookingsByID(2));
+        tableviewBookings.setItems(list);
+    }
 }
