@@ -14,9 +14,10 @@ public class EmployeeBookingController {
 
     @FXML
     public void initialize() {
-        // Set up the event handlers for the labels
+        toggleBoldText(EnkeltBookingLabel, BulkLabel);
         EnkeltBookingLabel.setOnMouseClicked(event -> toggleBoldText(EnkeltBookingLabel, BulkLabel));
         BulkLabel.setOnMouseClicked(event -> toggleBoldText(BulkLabel, EnkeltBookingLabel));
+        //first parameter gets toggled to bold, second gets disabled.
     }
 
     private void toggleBoldText(Label labelToBold, Label labelToNormal) {
