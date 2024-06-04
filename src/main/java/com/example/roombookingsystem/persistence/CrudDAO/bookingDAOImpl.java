@@ -123,8 +123,8 @@ public class bookingDAOImpl implements bookingDAO {
                 Booking booking = new Booking();
                 booking.setTitle(rs.getString("fldTitle"));
                 booking.setDate(rs.getDate("fldDate"));
-                booking.setTime(rs.getTime("fldTimeStart"));
-                booking.setTime(rs.getTime("fldTimeEnd"));
+                booking.setTimeStart(rs.getTime("fldTimeStart"));
+                booking.setTimeEnd(rs.getTime("fldTimeEnd"));
                 bookings.add(booking);
             }
         {

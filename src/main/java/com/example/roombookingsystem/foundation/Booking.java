@@ -43,7 +43,7 @@ public class Booking {
         this.date = date;
     }
 
-    public void setTime(Time timeStart) {
+    public void setTimeStart(Time timeStart) {
         this.timeStart = timeStart;
     }
 
