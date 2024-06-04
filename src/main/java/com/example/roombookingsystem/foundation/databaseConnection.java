@@ -24,7 +24,7 @@ public class databaseConnection {
     private static final String port = "1433";
     private static final String url =   "jdbc:sqlserver://localhost:" + port +
                                         ";databaseName=" + dbName +
-                                        ";encrypt=true;trustServerCertificate=true";
+                                        ";encrypt=true;trustServerCertificate=true;";
     private Properties properties = new Properties();
     Connection connection;
 
