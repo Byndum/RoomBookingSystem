@@ -3,6 +3,8 @@ import com.example.roombookingsystem.foundation.Booking;
 import com.example.roombookingsystem.foundation.bookingDAO;
 import com.example.roombookingsystem.domain.TimeSlot;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
@@ -12,6 +14,18 @@ import java.util.List;
 
 public class BookingService {
     private bookingDAO bookingDAO;
+
+
+    public void exportBookedHistoryToCSV (String filePath) throws SQLException, IOException{
+        List<Booking> bookings = bookingDAO.getBookingsByID();
+
+        try (FileWriter writer = new FileWriter(filePath)) {
+            writer.append("ID");
+                for (Booking booking : bookings){
+                    writer.append(String.valueOf(booking.getUserID()));
+                }
+        }
+    }
 
     public BookingService(bookingDAO bookingDAO) {
         this.bookingDAO = bookingDAO;

@@ -145,7 +145,7 @@ public class bookingDAOImpl implements bookingDAO {
              PreparedStatement pstmt = connection.prepareStatement(query)) {
             pstmt.setInt(1, booking.getRoomID());
             pstmt.setDate(2, booking.getDate());
-            pstmt.setTime(3, booking.getTime());
+            pstmt.setTime(3, booking.getTimeStart());
             pstmt.setTime(4, booking.getTimeEnd());
             pstmt.setBoolean(5, booking.isCatering());
             pstmt.setInt(6, booking.getUserID());
