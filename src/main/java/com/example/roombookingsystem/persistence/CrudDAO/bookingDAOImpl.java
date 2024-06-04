@@ -51,6 +51,13 @@ public class bookingDAOImpl implements bookingDAO {
             throw new RuntimeException(e);
         }
     }
+
+    //Temporary
+    @Override
+    public List<Booking> getBookingsForDateAndRoom(LocalDate date, int roomId) throws SQLException {
+        return null;
+    }
+
     @Override
     public ArrayList<Booking> getBookingsByID(int id) {
         ArrayList<Booking> array = new ArrayList<>();
@@ -108,13 +115,13 @@ public class bookingDAOImpl implements bookingDAO {
     }
 
     //Search query for looking at specific dates and rooms. Can be changed if needed.
-    public List<Booking> getBookingsForDateAndRoom(LocalDate date, int roomId){
+    public List<Booking> getBookingsForDateAndRoom(Date date, int roomId){
     String query = "SELECT * FROM tblBooking WHERE fldDate = ? AND fldRoomID = ?";
     try {
         Connection connection = databaseConnection.getInstance();
         PreparedStatement pstmt = connection.prepareStatement(query);
 
-        pstmt.setDate(1, Date.valueOf(date));
+        pstmt.setDate(1, date);
         pstmt.setInt(2, roomId);
         ResultSet rs = pstmt.executeQuery();
 
