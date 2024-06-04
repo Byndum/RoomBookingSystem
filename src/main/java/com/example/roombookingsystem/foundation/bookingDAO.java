@@ -4,9 +4,11 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
+import java.util.ArrayList;
+
 public interface bookingDAO {
     void addBooking(Booking booking);
-    Booking getBookingByID(int id);
+    ArrayList<Booking> getBookingsByID(int id);
     void updateBooking(Booking booking);
     void deleteBooking(int id);
     List<Booking> getBookingsForDateAndRoom(LocalDate date, int roomId) throws SQLException;

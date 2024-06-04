@@ -9,6 +9,9 @@ public enum FxmlView {
     EDITADMIN("/com/example/roombookingsystem/editAdmin-view.fxml",1280,720),
     EDITEMPLOYEE("/com/example/roombookingsystem/editEmployee-view.fxml",1280,720),
     EDITMAINTENANCESTAFF("/com/example/roombookingsystem/editMaintenanceStaff-view.fxml",1280,720),
+    MYBOOKINGSADMIN("/com/example/roombookingsystem/myBookingsAdmin-view.fxml",1280,720),
+    MYBOOKINGSEMPLOYEE("/com/example/roombookingsystem/myBookingsAdmin-view.fxml",1280,720),
+    MYBOOKINGSMAINTENANCESTAFF("/com/example/roombookingsystem/myBookingsAdmin-view.fxml",1280,720),
     ADHOC("/com/example/roombookingsystem/ad-Hoc-view.fxml",600,400);
 
 

@@ -27,16 +27,13 @@ public class HomeMaintenanceStaffController {
     @FXML
     public void initialize() {
         menuHome.setStyle("-fx-background-color: #00adef");
-        //menuHome.setStyle("-fx-background-color: linear-gradient(to right, #00adef, #f4f4f4)");
         menuBook.setStyle("-fx-background-color: #00adef");
         menuEdit.setStyle("-fx-background-color: #00adef");
         menuHistory.setStyle("-fx-background-color: #00adef");
         menuMyErrors.setStyle("-fx-background-color: #00adef");
         menuAllErrors.setStyle("-fx-background-color: #00adef");
 
-        menuHome.setOnMouseClicked(mouseEvent -> {
-            System.out.println("pane has been clicked!");
-        });
+        //region MouseEntered + MouseExited
         menuHome.setOnMouseEntered(mouseEvent -> {
             System.out.println("hover");
             menuHome.setStyle("-fx-background-color: #00bfff");
@@ -46,6 +43,52 @@ public class HomeMaintenanceStaffController {
             menuHome.setStyle("-fx-background-color: #00adef");
             //menuHome.setStyle("-fx-background-color: #fcfcfc");
         });
+        menuBook.setOnMouseEntered(mouseEvent -> {
+            System.out.println("hover");
+            menuBook.setStyle("-fx-background-color: #00bfff");
+        });
+        menuBook.setOnMouseExited(mouseEvent -> {
+            System.out.println("no longer hover");
+            menuBook.setStyle("-fx-background-color: #00adef");
+            //menuHome.setStyle("-fx-background-color: #fcfcfc");
+        });
+        menuEdit.setOnMouseEntered(mouseEvent -> {
+            System.out.println("hover");
+            menuEdit.setStyle("-fx-background-color: #00bfff");
+        });
+        menuEdit.setOnMouseExited(mouseEvent -> {
+            System.out.println("no longer hover");
+            menuEdit.setStyle("-fx-background-color: #00adef");
+            //menuHome.setStyle("-fx-background-color: #fcfcfc");
+        });
+        menuHistory.setOnMouseEntered(mouseEvent -> {
+            System.out.println("hover");
+            menuHistory.setStyle("-fx-background-color: #00bfff");
+        });
+        menuHistory.setOnMouseExited(mouseEvent -> {
+            System.out.println("no longer hover");
+            menuHistory.setStyle("-fx-background-color: #00adef");
+            //menuHome.setStyle("-fx-background-color: #fcfcfc");
+        });
+        menuMyErrors.setOnMouseEntered(mouseEvent -> {
+            System.out.println("hover");
+            menuMyErrors.setStyle("-fx-background-color: #00bfff");
+        });
+        menuMyErrors.setOnMouseExited(mouseEvent -> {
+            System.out.println("no longer hover");
+            menuMyErrors.setStyle("-fx-background-color: #00adef");
+            //menuHome.setStyle("-fx-background-color: #fcfcfc");
+        });
+        menuAllErrors.setOnMouseEntered(mouseEvent -> {
+            System.out.println("hover");
+            menuAllErrors.setStyle("-fx-background-color: #00bfff");
+        });
+        menuAllErrors.setOnMouseExited(mouseEvent -> {
+            System.out.println("no longer hover");
+            menuAllErrors.setStyle("-fx-background-color: #00adef");
+            //menuHome.setStyle("-fx-background-color: #fcfcfc");
+        });
+        //endregion
     }
     public void menuHomeClick(MouseEvent mouseEvent) throws IOException {
         SceneSwitcher.getInstance().switchScene(FxmlView.HOMEMANINTENANCESTAFF);
@@ -57,5 +100,9 @@ public class HomeMaintenanceStaffController {
 
     public void btnEditClick(MouseEvent mouseEvent) throws IOException {
         SceneSwitcher.getInstance().switchScene(FxmlView.EDITMAINTENANCESTAFF);
+    }
+
+    public void btnHistoryClick(MouseEvent mouseEvent) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSMAINTENANCESTAFF);
     }
 }
