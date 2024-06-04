@@ -61,6 +61,17 @@ public class Booking {
     public int getUserID() {
         return userID;
     }
+    public void setTimeStart(Time timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
 
     public void setUserID(int userID) {
         this.userID = userID;
@@ -72,9 +83,10 @@ public class Booking {
     private Time timeEnd;
     private boolean catering;
     private int roomID;
+    private String roomName;
     private int userID;
 
-    public Booking (int bookingID, String title, Date date, Time timeStart, Time timeEnd, boolean catering, int roomID, int userID)
+    public Booking (int bookingID, String title, Date date, Time timeStart, Time timeEnd, boolean catering, int roomID, String roomName, int userID)
     {
         this.bookingID = bookingID;
         this.title = title;
@@ -83,6 +95,7 @@ public class Booking {
         this.timeEnd = timeEnd;
         this.catering = catering;
         this.roomID = roomID;
+        this.roomName = roomName;
         this.userID = userID;
     }
 
