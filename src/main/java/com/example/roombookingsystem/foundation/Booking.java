@@ -16,8 +16,8 @@ public class Booking {
         return date;
     }
 
-    public Time getTime() {
-        return time;
+    public Time getTimeStart() {
+        return timeStart;
     }
     public Time getTimeEnd() {
         return timeEnd;
@@ -43,8 +43,8 @@ public class Booking {
         this.date = date;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setTimeStart(Time timeStart) {
+        this.timeStart = timeStart;
     }
 
     public void setTimeEnd(Time timeEnd) {
@@ -68,24 +68,26 @@ public class Booking {
     private int bookingID;
     private String title;
     private Date date;
-    private Time time;
+    private Time timeStart;
     private Time timeEnd;
     private boolean catering;
     private int roomID;
     private int userID;
 
-    public Booking (int bookingID, String title, Date date, Time time, Time timeEnd, boolean catering, int roomID, int userID)
+    public Booking (int bookingID, String title, Date date, Time timeStart, Time timeEnd, boolean catering, int roomID, int userID)
     {
         this.bookingID = bookingID;
         this.title = title;
         this.date = date;
-        this.time = time;
+        this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.catering = catering;
         this.roomID = roomID;
         this.userID = userID;
     }
-    public Booking ()
-    {
+
+
+    public Booking() {
+
     }
 }

@@ -20,7 +20,8 @@ module com.example.roombookingsystem {
     opens com.example.roombookingsystem.application.controller to javafx.fxml;
     exports com.example.roombookingsystem.domain;
     exports com.example.roombookingsystem.foundation;
-    exports com.example.roombookingsystem.persistence;
+    exports com.example.roombookingsystem.persistence.StoredProcedures;
     exports com.example.roombookingsystem.presentation;
     exports com.example.roombookingsystem.services;
+    exports com.example.roombookingsystem.persistence.CrudDAO;
 }

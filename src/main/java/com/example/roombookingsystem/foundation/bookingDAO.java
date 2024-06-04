@@ -1,5 +1,9 @@
 package com.example.roombookingsystem.foundation;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
+
 import java.util.ArrayList;
 
 public interface bookingDAO {
@@ -7,4 +11,6 @@ public interface bookingDAO {
     ArrayList<Booking> getBookingsByID(int id);
     void updateBooking(Booking booking);
     void deleteBooking(int id);
+    List<Booking> getBookingsForDateAndRoom(LocalDate date, int roomId) throws SQLException;
+
 }
