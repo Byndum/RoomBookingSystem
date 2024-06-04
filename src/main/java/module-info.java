@@ -23,4 +23,5 @@ module com.example.roombookingsystem {
     exports com.example.roombookingsystem.persistence;
     exports com.example.roombookingsystem.presentation;
     exports com.example.roombookingsystem.services;
+    exports com.example.roombookingsystem.persistence.CrudDAO;
 }

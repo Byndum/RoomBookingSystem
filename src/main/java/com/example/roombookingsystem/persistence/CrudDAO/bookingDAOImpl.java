@@ -1,4 +1,4 @@
-package com.example.roombookingsystem.persistence;
+package com.example.roombookingsystem.persistence.CrudDAO;
 
 import com.example.roombookingsystem.foundation.Booking;
 import com.example.roombookingsystem.foundation.bookingDAO;

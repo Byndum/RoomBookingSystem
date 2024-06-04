@@ -22,7 +22,12 @@ public class BookingService {
         try (FileWriter writer = new FileWriter(filePath)) {
             writer.append("ID");
                 for (Booking booking : bookings){
-                    writer.append(String.valueOf(booking.getUserID()));
+                    writer.append(String.valueOf(booking.getTitle()));
+                    writer.append(String.valueOf(booking.getRoomID()));
+                    writer.append(String.valueOf(booking.getDate()));
+                    writer.append(String.valueOf(booking.getTimeStart()));
+                    writer.append(String.valueOf(booking.getTimeEnd()));
+
                 }
         }
     }
