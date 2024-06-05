@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class Login {
     private static Login instance;
 
+    private User LoginUserObj;
     private int loginID;
     private String loginUsername;
 
@@ -20,11 +21,17 @@ public class Login {
         return instance;
     }
 
+    public User getLoginUserObj() {
+        return LoginUserObj;
+    }
     public int getLoginID() {
         return loginID;
     }
     public String getLoginUsername() {
         return loginUsername;
+    }
+    public void setLoginUserObj(User userObj) {
+        this.LoginUserObj = userObj;
     }
 
     public void login(String username, String password) throws SQLException {
@@ -38,6 +45,8 @@ public class Login {
             this.loginID = rs.getInt("fldUserID");
             this.loginUsername = username;
             System.out.println("Login ID: " + this.loginID);
+
+
         }
     }
 }

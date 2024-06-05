@@ -25,7 +25,7 @@ public class BookingHistoryAdminController {
     ArrayList<User> users = dbUsers.getAllUsers();
     //region FXML declarations
     @FXML
-    private ChoiceBox<String> choiceUser;
+    private ChoiceBox<User> choiceUser;
     @FXML
     private TableView<Booking> tableviewBookings;
     @FXML
@@ -158,11 +158,17 @@ public class BookingHistoryAdminController {
         tcErrors.setCellValueFactory(new PropertyValueFactory<Booking, String>("errors"));
 
         for (User user : users) {
-            choiceUser.getItems().add(user.getUsername());
+            choiceUser.getItems().add(user);
+            if (user.getUsername().equals(Login.getInstance().getLoginUsername())) {
+                Login.getInstance().setLoginUserObj(user);
+            }
         }
 
 
-        choiceUser.getSelectionModel().select(Login.getInstance().getLoginUsername());
+        choiceUser.getSelectionModel().select(Login.getInstance().getLoginUserObj());
+
+        User tempUser = choiceUser.getSelectionModel().getSelectedItem();
+        System.out.println(tempUser.getUsername());
 
 
         populateTableview();

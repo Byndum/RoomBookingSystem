@@ -24,4 +24,8 @@ public class User {
     public int getUserRoleID() {
         return userRoleID;
     }
+    @Override
+    public String toString() {
+        return username;
+    }
 }
