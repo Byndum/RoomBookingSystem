@@ -164,18 +164,17 @@ public class BookingHistoryAdminController {
             }
         }
 
-
         choiceUser.getSelectionModel().select(Login.getInstance().getLoginUserObj());
+        populateTableview(Login.getInstance().getLoginUserObj());
 
-        User tempUser = choiceUser.getSelectionModel().getSelectedItem();
-        System.out.println(tempUser.getUsername());
-
-
-        populateTableview();
+        choiceUser.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->{
+            User tempUser = choiceUser.getSelectionModel().getSelectedItem();
+            populateTableview(tempUser);
+        });
     }
-    public void populateTableview() {
+    public void populateTableview(User user) {
         bookingDAOImpl bDao = new bookingDAOImpl();
-        ObservableList<Booking> list = FXCollections.observableArrayList(bDao.getBookingsByID(2));
+        ObservableList<Booking> list = FXCollections.observableArrayList(bDao.getBookingsByID(user.getUserID()));
         tableviewBookings.setItems(list);
     }
 }
