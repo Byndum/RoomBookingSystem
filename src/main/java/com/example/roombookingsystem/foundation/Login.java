@@ -9,6 +9,7 @@ public class Login {
     private static Login instance;
 
     private int loginID;
+    private String loginUsername;
 
     private Login() {}
 
@@ -22,6 +23,9 @@ public class Login {
     public int getLoginID() {
         return loginID;
     }
+    public String getLoginUsername() {
+        return loginUsername;
+    }
 
     public void login(String username, String password) throws SQLException {
         Connection con = databaseConnection.getInstance();
@@ -32,6 +36,7 @@ public class Login {
 
         if (rs.next()) {
             this.loginID = rs.getInt("fldUserID");
+            this.loginUsername = username;
             System.out.println("Login ID: " + this.loginID);
         }
     }

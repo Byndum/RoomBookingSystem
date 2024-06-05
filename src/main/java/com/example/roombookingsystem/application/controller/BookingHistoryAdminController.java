@@ -3,8 +3,10 @@ package com.example.roombookingsystem.application.controller;
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.foundation.Login;
 import com.example.roombookingsystem.foundation.User;
 import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
+import com.example.roombookingsystem.persistence.GenericQuerries.DBUsers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,8 +18,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class BookingHistoryAdminController {
+    DBUsers dbUsers = new DBUsers();
+    ArrayList<User> users = dbUsers.getAllUsers();
     //region FXML declarations
     @FXML
     private ChoiceBox<String> choiceUser;
@@ -152,10 +157,12 @@ public class BookingHistoryAdminController {
         tcTimeEnd.setCellValueFactory(new PropertyValueFactory<Booking, String>("timeEnd"));
         tcErrors.setCellValueFactory(new PropertyValueFactory<Booking, String>("errors"));
 
-        choiceUser.getItems().add("test1");
-        choiceUser.getItems().add("test2");
-        choiceUser.getItems().add("test3");
-        choiceUser.getItems().add("test4");
+        for (User user : users) {
+            choiceUser.getItems().add(user.getUsername());
+        }
+
+
+        choiceUser.getSelectionModel().select(Login.getInstance().getLoginUsername());
 
 
         populateTableview();

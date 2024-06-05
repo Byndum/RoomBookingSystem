@@ -15,4 +15,13 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.userRoleID = userRoleID;
     }
+    public String getUsername() {
+        return username;
+    }
+    public int getUserID() {
+        return userID;
+    }
+    public int getUserRoleID() {
+        return userRoleID;
+    }
 }
