@@ -16,22 +16,6 @@ import java.util.List;
 public class BookingService {
     private bookingDAO bookingDAO;
 
-    public void exportBookedHistoryToCSV (String filePath) throws SQLException, IOException{
-        List<Booking> bookings = bookingDAO.getBookingsByID(2);
-
-        try (FileWriter writer = new FileWriter(filePath)) {
-            writer.append("Title,Room,Date,TimeStart,TimeEnd\n");
-                for (Booking booking : bookings){
-                    writer.append(String.valueOf(booking.getTitle())).append(',');
-                    writer.append(String.valueOf(booking.getRoomID())).append(',');
-                    writer.append(String.valueOf(booking.getDate())).append(',');
-                    writer.append(String.valueOf(booking.getTimeStart())).append(',');
-                    writer.append(String.valueOf(booking.getTimeEnd())).append(',');
-
-                }
-        }
-    }
-
     public BookingService(bookingDAO bookingDAO) {
         this.bookingDAO = bookingDAO;
     }
