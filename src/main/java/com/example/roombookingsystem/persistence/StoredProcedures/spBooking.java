@@ -1,5 +1,6 @@
 package com.example.roombookingsystem.persistence.StoredProcedures;
 
+import com.example.roombookingsystem.foundation.AvailableTimes;
 import com.example.roombookingsystem.foundation.Booking;
 import com.example.roombookingsystem.foundation.databaseConnection;
 
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class spBooking {
-    public ArrayList<Booking> getAvailableTimesFilter(Date date, Time timeStart, Time timeEnd, int minRoomSize, boolean requiresEq1, boolean requiresEq2, boolean requiresEq3, boolean requiresEq4, int roomID) {
+    public ArrayList<AvailableTimes> getAvailableTimesFilter(Date date, Time timeStart, Time timeEnd, int minRoomSize, boolean requiresEq1, boolean requiresEq2, boolean requiresEq3, boolean requiresEq4, int roomID) {
         String query = "EXEC sp_GetAvailableRoomsFilter @Date = ?, @StartTime = ?, @EndTime = ?, @MinRoomSize = ?, @RequiresEquip1 = ?, @RequiresEquip2 = ?, @RequiresEquip3 = ?, @RequiresEquip4 = ?, @RoomID = ?";
         try {
             Connection connection = databaseConnection.getInstance();
@@ -25,20 +26,17 @@ public class spBooking {
 
             ResultSet resultSet = pstmt.executeQuery();
 
-            ArrayList<Booking> array = new ArrayList<>();
+            ArrayList<AvailableTimes> array = new ArrayList<>();
             while (resultSet.next())
             {
-                Booking booking = new Booking(
+                AvailableTimes availableTimes = new AvailableTimes(
                         resultSet.getInt(1),
                         resultSet.getString(2),
-                        resultSet.getDate(3),
+                        resultSet.getInt(3),
                         resultSet.getTime(4),
-                        resultSet.getTime(5),
-                        resultSet.getBoolean(6),
-                        resultSet.getInt(7),
-                        resultSet.getString(9),
-                        resultSet.getInt(8));
-                array.add(booking);
+                        resultSet.getTime(5)
+                );
+                array.add(availableTimes);
             }
             return array;
         } catch (SQLException e) {

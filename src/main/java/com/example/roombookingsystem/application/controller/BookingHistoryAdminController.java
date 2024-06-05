@@ -3,11 +3,12 @@ package com.example.roombookingsystem.application.controller;
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.Booking;
-import com.example.roombookingsystem.foundation.ObservableBooking;
+import com.example.roombookingsystem.foundation.User;
 import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,21 +20,23 @@ import java.io.IOException;
 public class BookingHistoryAdminController {
     //region FXML declarations
     @FXML
+    private ChoiceBox<String> choiceUser;
+    @FXML
     private TableView<Booking> tableviewBookings;
     @FXML
-    private TableColumn<ObservableBooking, String> tcRoomName;
+    private TableColumn<Booking, String> tcRoomName;
     @FXML
-    private TableColumn<ObservableBooking, String> tcTitle;
+    private TableColumn<Booking, String> tcTitle;
     @FXML
-    private TableColumn<ObservableBooking, String> tcDate;
+    private TableColumn<Booking, String> tcDate;
     @FXML
-    private TableColumn<ObservableBooking, String> tcDay;
+    private TableColumn<Booking, String> tcDay;
     @FXML
-    private TableColumn<ObservableBooking, String> tcTimeStart;
+    private TableColumn<Booking, String> tcTimeStart;
     @FXML
-    private TableColumn<ObservableBooking, String> tcTimeEnd;
+    private TableColumn<Booking, String> tcTimeEnd;
     @FXML
-    private TableColumn<ObservableBooking, String> tcErrors;
+    private TableColumn<Booking, String> tcErrors;
     @FXML
     private StackPane menuAllErrors;
     @FXML
@@ -141,13 +144,19 @@ public class BookingHistoryAdminController {
             //menuHome.setStyle("-fx-background-color: #fcfcfc");
         });
         //endregion
-        tcRoomName.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("roomName"));
-        tcTitle.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("title"));
-        tcDate.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("date"));
-        tcDay.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("day"));
-        tcTimeStart.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("timeStart"));
-        tcTimeEnd.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("timeEnd"));
-        tcErrors.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("errors"));
+        tcRoomName.setCellValueFactory(new PropertyValueFactory<Booking, String>("roomName"));
+        tcTitle.setCellValueFactory(new PropertyValueFactory<Booking, String>("title"));
+        tcDate.setCellValueFactory(new PropertyValueFactory<Booking, String>("date"));
+        tcDay.setCellValueFactory(new PropertyValueFactory<Booking, String>("day"));
+        tcTimeStart.setCellValueFactory(new PropertyValueFactory<Booking, String>("timeStart"));
+        tcTimeEnd.setCellValueFactory(new PropertyValueFactory<Booking, String>("timeEnd"));
+        tcErrors.setCellValueFactory(new PropertyValueFactory<Booking, String>("errors"));
+
+        choiceUser.getItems().add("test1");
+        choiceUser.getItems().add("test2");
+        choiceUser.getItems().add("test3");
+        choiceUser.getItems().add("test4");
+
 
         populateTableview();
     }

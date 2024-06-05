@@ -1,13 +1,21 @@
 package com.example.roombookingsystem.application.controller;
 
+import com.example.roombookingsystem.foundation.AvailableTimes;
+import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
+import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import com.example.roombookingsystem.foundation.ObservableRoomTest;
 
+import java.awt.print.Book;
+import java.sql.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.stream.Collectors;
 
 public class AdHocController {
@@ -26,22 +34,35 @@ public class AdHocController {
     @FXML
     MenuButton TidFilter;
     @FXML
-    TableView<ObservableRoomTest> RoomsTableView;
+    TableView<AvailableTimes> RoomsTableView;
     @FXML
-    TableColumn<ObservableRoomTest, String> LokaleColumn;
+    TableColumn<AvailableTimes, String> roomNameColumn;
     @FXML
-    TableColumn<ObservableRoomTest, String> TidColumn;
+    TableColumn<AvailableTimes, String> timeStartColumn;
     @FXML
-    TableColumn<ObservableRoomTest, String> FejlColumn;
+    TableColumn<AvailableTimes, String> timeEndColumn;
     @FXML
-    TableColumn<ObservableRoomTest, String> HandlingColumn;
+    TableColumn<AvailableTimes, String> errorsColumn;
+    @FXML
+    TableColumn<AvailableTimes, String> actionColumn;
 
-    ObservableList<ObservableRoomTest> data = FXCollections.observableArrayList(
-             new ObservableRoomTest("306", "09:45-12:00", "ingen fejl", "book"),
-             new ObservableRoomTest("306", "13:15-14:00", "ingen fejl", "book"),
-            new ObservableRoomTest("406", "13:15-14:00", "ingen fejl", "book")
-    );
+    ObservableList<AvailableTimes> data;
+
     public void initialize() {
+        spBooking Bookings = new spBooking();
+        Date date = new Date(System.currentTimeMillis());
+        System.out.println(date);
+        data = FXCollections.observableArrayList(Bookings.getAvailableTimesFilter(
+                date,
+                null,
+                null,
+                0,
+                false,
+                false,
+                false,
+                false,
+                0
+        ));
         DatoLabel.setText(java.time.LocalDate.now().toString());
         ClockLabel.setText(java.time.LocalTime.now().toString());
 
@@ -49,10 +70,11 @@ public class AdHocController {
         filterButton.setLayoutY(370);
         RoomsTableView.setPrefHeight(340);
 
-        LokaleColumn.setCellValueFactory(new PropertyValueFactory<ObservableRoomTest, String>("lokaleNavn"));
-        TidColumn.setCellValueFactory(new PropertyValueFactory<ObservableRoomTest, String>("tid"));
-        FejlColumn.setCellValueFactory(new PropertyValueFactory<ObservableRoomTest, String>("fejl"));
-        HandlingColumn.setCellValueFactory(new PropertyValueFactory<ObservableRoomTest, String>("handling"));
+        roomNameColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("roomName"));
+        timeStartColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("timeStart"));
+        timeEndColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("timeEnd"));
+        errorsColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("errorsText"));
+        actionColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("actionText"));
 
         RoomsTableView.setItems(data);
         filterButton.setOnMouseClicked(event -> {
@@ -72,7 +94,7 @@ public class AdHocController {
         LokaleFilter.getItems().clear();
         LokaleFilter.getItems().add(new MenuItem("Alle Lokaler"));
         data.stream()
-                .map(ObservableRoomTest::getLokaleNavn)
+                .map(AvailableTimes::getRoomName)
                 .distinct()
                 .forEach(lokale -> {
                     MenuItem menuItem = new MenuItem(lokale);
@@ -82,8 +104,8 @@ public class AdHocController {
         LokaleFilter.getItems().get(0).setOnAction(event -> RoomsTableView.setItems(data));  // all
     }
     private void filterByRoom(String roomNumber) {
-        ObservableList<ObservableRoomTest> filteredData = data.stream()
-                .filter(room -> room.getLokaleNavn().equals(roomNumber))
+        ObservableList<AvailableTimes> filteredData = data.stream()
+                .filter(room -> room.getRoomName().equals(roomNumber))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         RoomsTableView.setItems(filteredData);
     }
@@ -100,8 +122,8 @@ public class AdHocController {
         });
     }
     private void filterByTime(String time) {
-        ObservableList<ObservableRoomTest> filteredData = data.stream()
-                .filter(room -> room.getTid().startsWith(time))
+        ObservableList<AvailableTimes> filteredData = data.stream()
+                .filter(room -> room.getTimeStart().equals(time))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         RoomsTableView.setItems(filteredData);
     }

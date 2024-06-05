@@ -61,9 +61,7 @@ public class Booking {
     public int getUserID() {
         return userID;
     }
-    public void setTimeStart(Time timeStart) {
-        this.timeStart = timeStart;
-    }
+
 
     public String getRoomName() {
         return roomName;
@@ -85,6 +83,7 @@ public class Booking {
     private int roomID;
     private String roomName;
     private int userID;
+    private String day;
 
     public Booking (int bookingID, String title, Date date, Time timeStart, Time timeEnd, boolean catering, int roomID, String roomName, int userID)
     {
@@ -97,6 +96,7 @@ public class Booking {
         this.roomID = roomID;
         this.roomName = roomName;
         this.userID = userID;
+
     }
 
 

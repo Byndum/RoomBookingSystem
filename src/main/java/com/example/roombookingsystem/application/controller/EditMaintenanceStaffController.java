@@ -2,7 +2,7 @@ package com.example.roombookingsystem.application.controller;
 
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
-import com.example.roombookingsystem.foundation.ObservableBooking;
+import com.example.roombookingsystem.foundation.Booking;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,21 +18,21 @@ import java.io.IOException;
 public class EditMaintenanceStaffController {
     //region FXML declarations
     @FXML
-    private TableView<ObservableBooking> tableviewBookings;
+    private TableView<Booking> tableviewBookings;
     @FXML
-    private TableColumn<ObservableBooking, String> tcRoomName;
+    private TableColumn<Booking, String> tcRoomName;
     @FXML
-    private TableColumn<ObservableBooking, String> tcTitle;
+    private TableColumn<Booking, String> tcTitle;
     @FXML
-    private TableColumn<ObservableBooking, String> tcDate;
+    private TableColumn<Booking, String> tcDate;
     @FXML
-    private TableColumn<ObservableBooking, String> tcDay;
+    private TableColumn<Booking, String> tcDay;
     @FXML
-    private TableColumn<ObservableBooking, String> tcTimeStart;
+    private TableColumn<Booking, String> tcTimeStart;
     @FXML
-    private TableColumn<ObservableBooking, String> tcTimeEnd;
+    private TableColumn<Booking, String> tcTimeEnd;
     @FXML
-    private TableColumn<ObservableBooking, String> tcErrors;
+    private TableColumn<Booking, String> tcErrors;
     @FXML
     private StackPane menuHome;
     @FXML
@@ -46,13 +46,6 @@ public class EditMaintenanceStaffController {
     @FXML
     private StackPane menuAllErrors;
     //endregion
-
-    //TODO: Move somewhere else where it's accessible and expandable
-    ObservableList<ObservableBooking> data = FXCollections.observableArrayList(
-            new ObservableBooking("402","Salgsmøde 1","2024-05-26","Monday", "12:15", "12:45", ""),
-            new ObservableBooking("306","Salgsmøde 2","2024-05-26","Monday", "08:30", "10:00", ""),
-            new ObservableBooking("420","Salgsmøde 3","2024-05-27","Tuesday", "11:45", "12:45", "")
-    );
 
     @FXML
     public void initialize() {
@@ -122,13 +115,13 @@ public class EditMaintenanceStaffController {
         });
         //endregion
 
-        tcRoomName.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("roomName"));
-        tcTitle.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("title"));
-        tcDate.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("date"));
-        tcDay.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("day"));
-        tcTimeStart.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("timeStart"));
-        tcTimeEnd.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("timeEnd"));
-        tcErrors.setCellValueFactory(new PropertyValueFactory<ObservableBooking, String>("errors"));
+        tcRoomName.setCellValueFactory(new PropertyValueFactory<Booking, String>("roomName"));
+        tcTitle.setCellValueFactory(new PropertyValueFactory<Booking, String>("title"));
+        tcDate.setCellValueFactory(new PropertyValueFactory<Booking, String>("date"));
+        tcDay.setCellValueFactory(new PropertyValueFactory<Booking, String>("day"));
+        tcTimeStart.setCellValueFactory(new PropertyValueFactory<Booking, String>("timeStart"));
+        tcTimeEnd.setCellValueFactory(new PropertyValueFactory<Booking, String>("timeEnd"));
+        tcErrors.setCellValueFactory(new PropertyValueFactory<Booking, String>("errors"));
     }
 
     public void menuHomeClick(MouseEvent mouseEvent) throws IOException {
@@ -144,6 +137,5 @@ public class EditMaintenanceStaffController {
     }
 
     public void btnConfirmClick(ActionEvent actionEvent) {
-        tableviewBookings.setItems(data);
     }
 }
