@@ -30,4 +30,8 @@ public class Room {
     public void setRoomSize(int roomSize) {
         this.roomSize = roomSize;
     }
+    @Override
+    public String toString() {
+        return roomName;
+    }
 }
