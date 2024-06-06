@@ -1,13 +1,20 @@
 package com.example.roombookingsystem.application.controller;
 
+import com.example.roombookingsystem.foundation.AvailableTimes;
 import com.example.roombookingsystem.foundation.Room;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
+import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import java.time.LocalDate;
+import java.sql.Date;
+import java.util.ArrayList;
 
 public class EmployeeBookingController {
     @FXML
@@ -20,6 +27,12 @@ public class EmployeeBookingController {
     private DatePicker dpStart;
     @FXML
     private DatePicker dpEnd;
+    @FXML
+    private ListView listViewAvailableTimes;
+
+    private Date dStart;
+    private Date dEnd;
+    private spBooking DBSPBooking = new spBooking();
 
     @FXML
     public void initialize() {
@@ -42,9 +55,8 @@ public class EmployeeBookingController {
             choiceRoom.getItems().add(room);
         }
 
-        dpStart.valueProperty().addListener((ov, oldValue, newValue)->{
-
-        });
+        dpStart.valueProperty().addListener((ov, oldValue, newValue) -> ChangeStartDate(Date.valueOf(newValue),newValue));
+        dpEnd.valueProperty().addListener((ov, oldValue, newValue) -> ChangeEndDate(Date.valueOf(newValue),newValue));
     }
 
     private void toggleBoldText(Label labelToBold, Label labelToNormal) {
@@ -54,5 +66,43 @@ public class EmployeeBookingController {
         Font normalFont = Font.font(labelToNormal.getFont().getFamily(), FontWeight.NORMAL, labelToNormal.getFont().getSize());
         labelToNormal.setFont(normalFont);
     }
-    //private void
+
+    private void ChangeStartDate(Date newDate, LocalDate newLocalDate) {
+        dStart = newDate;
+        if (dEnd == null || dEnd.before(dStart)) {
+            dEnd = dStart;
+        }
+
+        populateAvailable();
+    }
+
+    private void ChangeEndDate(Date newDate, LocalDate newLocalDate) {
+        dEnd = newDate;
+        if (dStart == null) {
+            dStart = Date.valueOf(LocalDate.now());
+        }
+
+        populateAvailable();
+    }
+
+    private void populateAvailable() {
+        listViewAvailableTimes.getItems().clear();
+        ArrayList<AvailableTimes> availableTimesArrayList = new ArrayList<>();
+        for (AvailableTimes availableTimes : DBSPBooking.getAvailableTimesFilter(
+                dStart,
+                null,
+                null,
+                0,
+                false,
+                false,
+                false,
+                false,
+                choiceRoom.getSelectionModel().getSelectedItem().getRoomID()
+        )) {
+            availableTimesArrayList.add(availableTimes);
+        }
+        for (AvailableTimes at : availableTimesArrayList) {
+            listViewAvailableTimes.getItems().add(at);
+        }
+    }
 }
