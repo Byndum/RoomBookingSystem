@@ -24,6 +24,8 @@ public class EmployeeBookingController {
     @FXML
     private Label BulkLabel;
     @FXML
+    private Label labelEndDate;
+    @FXML
     private DatePicker dpStart;
     @FXML
     private DatePicker dpEnd;
@@ -40,11 +42,17 @@ public class EmployeeBookingController {
         EnkeltBookingLabel.setUnderline(true);
 
         EnkeltBookingLabel.setOnMouseClicked(event -> {
+            dpEnd.setDisable(true);
+            dpEnd.setVisible(false);
+            labelEndDate.setVisible(false);
             toggleBoldText(EnkeltBookingLabel, BulkLabel);
             EnkeltBookingLabel.setUnderline(true);
             BulkLabel.setUnderline(false);
         });
         BulkLabel.setOnMouseClicked(event -> {
+            dpEnd.setDisable(false);
+            dpEnd.setVisible(true);
+            labelEndDate.setVisible(true);
             toggleBoldText(BulkLabel, EnkeltBookingLabel);
             BulkLabel.setUnderline(true);
             EnkeltBookingLabel.setUnderline(false);
