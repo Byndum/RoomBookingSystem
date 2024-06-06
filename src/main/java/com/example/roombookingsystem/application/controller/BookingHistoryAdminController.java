@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -157,6 +158,8 @@ public class BookingHistoryAdminController {
         tcTimeEnd.setCellValueFactory(new PropertyValueFactory<Booking, String>("timeEnd"));
         tcErrors.setCellValueFactory(new PropertyValueFactory<Booking, String>("errors"));
 
+        choiceUser.getItems().add(new User(0,"Alle","N/A","N/A",0));
+
         for (User user : users) {
             choiceUser.getItems().add(user);
             if (user.getUsername().equals(Login.getInstance().getLoginUsername())) {
@@ -169,8 +172,17 @@ public class BookingHistoryAdminController {
 
         choiceUser.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) ->{
             User tempUser = choiceUser.getSelectionModel().getSelectedItem();
-            populateTableview(tempUser);
+            if (tempUser.getUsername() != "Alle") {
+                populateTableview(tempUser);
+            } else {
+                populateTableview();
+            }
         });
+    }
+    public void populateTableview() {
+        bookingDAOImpl bDao = new bookingDAOImpl();
+        ObservableList<Booking> list = FXCollections.observableArrayList(bDao.getAllBookings());
+        tableviewBookings.setItems(list);
     }
     public void populateTableview(User user) {
         bookingDAOImpl bDao = new bookingDAOImpl();

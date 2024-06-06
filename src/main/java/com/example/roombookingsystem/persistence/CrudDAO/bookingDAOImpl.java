@@ -87,6 +87,34 @@ public class bookingDAOImpl implements bookingDAO {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public ArrayList<Booking> getAllBookings() {
+        ArrayList<Booking> array = new ArrayList<>();
+        String query = "SELECT tblBooking.*, tblRoom.fldRoomName FROM tblBooking JOIN tblRoom ON tblBooking.fldRoomID = tblRoom.fldRoomID";
+        try {
+            Connection connection = databaseConnection.getInstance();
+            PreparedStatement pstmt = connection.prepareStatement(query);
+
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                Booking booking = new Booking(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getDate(3),
+                        resultSet.getTime(4),
+                        resultSet.getTime(5),
+                        resultSet.getBoolean(6),
+                        resultSet.getInt(7),
+                        resultSet.getString(9),
+                        resultSet.getInt(8));
+                array.add(booking);
+            }
+            return array;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void updateTodaysBookingsArrayList() {
         String query = "SELECT tblBooking.*, tblRoom.fldRoomName FROM tblBooking JOIN tblRoom ON tblBooking.fldRoomID = tblRoom.fldRoomID";
