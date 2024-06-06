@@ -12,8 +12,8 @@
       <ChoiceBox fx:id="choiceRoom" layoutX="95.0" layoutY="54.0" prefHeight="25.0" prefWidth="106.0" />
       <Label layoutX="57.0" layoutY="101.0" text="Dato fra" />
       <DatePicker fx:id="dpStart" layoutX="107.0" layoutY="97.0" prefHeight="25.0" prefWidth="128.0" />
-      <Label layoutX="327.0" layoutY="101.0" text="Dato til" />
-      <DatePicker fx:id="dpEnd" layoutX="370.0" layoutY="97.0" prefHeight="25.0" prefWidth="134.0" />
+      <Label fx:id="labelEndDate" layoutX="327.0" layoutY="101.0" text="Dato til" visible="false" />
+      <DatePicker fx:id="dpEnd" disable="true" layoutX="370.0" layoutY="97.0" prefHeight="25.0" prefWidth="134.0" visible="false" />
       <Label layoutX="119.0" layoutY="133.0" text="Ledige" />
       <Label layoutX="399.0" layoutY="133.0" text="I gang" />
       <ListView fx:id="listViewAvailableTimes" layoutX="37.0" layoutY="150.0" prefHeight="196.0" prefWidth="200.0" />
