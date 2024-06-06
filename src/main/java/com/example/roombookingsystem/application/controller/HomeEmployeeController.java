@@ -89,4 +89,8 @@ public class HomeEmployeeController {
     public void btnEditClick(MouseEvent mouseEvent) throws IOException {
         SceneSwitcher.getInstance().switchScene(FxmlView.EDITEMPLOYEE);
     }
+
+    public void btnHistoryClick(MouseEvent mouseEvent) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSEMPLOYEE);
+    }
 }

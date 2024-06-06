@@ -138,4 +138,8 @@ public class EditMaintenanceStaffController {
 
     public void btnConfirmClick(ActionEvent actionEvent) {
     }
+
+    public void btnHistoryClick(MouseEvent mouseEvent) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSMAINTENANCESTAFF);
+    }
 }

@@ -3,10 +3,14 @@ package com.example.roombookingsystem.application.controller;
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.foundation.Login;
+import com.example.roombookingsystem.foundation.User;
+import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
+import com.example.roombookingsystem.persistence.GenericQuerries.DBUsers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,8 +18,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class EditEmployeeController {
+public class BookingHistoryEmployeeController {
+    DBUsers dbUsers = new DBUsers();
+    ArrayList<User> users = dbUsers.getAllUsers();
     //region FXML declarations
     @FXML
     private TableView<Booking> tableviewBookings;
@@ -34,27 +41,41 @@ public class EditEmployeeController {
     @FXML
     private TableColumn<Booking, String> tcErrors;
     @FXML
-    private StackPane menuHome;
-    @FXML
     private StackPane menuBook;
     @FXML
     private StackPane menuEdit;
     @FXML
     private StackPane menuHistory;
     @FXML
+    private StackPane menuHome;
+    @FXML
     private StackPane menuMyErrors;
     //endregion
-
+    @FXML
+    void btnBookClick(MouseEvent event) throws IOException {
+        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING);
+    }
+    @FXML
+    void btnEditClick(MouseEvent event) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.EDITEMPLOYEE);
+    }
+    @FXML
+    void btnHistoryClick(MouseEvent event) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSEMPLOYEE);
+    }
+    @FXML
+    void menuHomeClick(MouseEvent event) throws IOException {
+        SceneSwitcher.getInstance().switchScene(FxmlView.HOMEEMPLOYEE);
+    }
     @FXML
     public void initialize() {
-        //TODO: Add indicator for what tab you're on
-        //TODO: Add Text and maybe an icon for the home page
+        //region Set initial colors for the side-menubar
         menuHome.setStyle("-fx-background-color: #00adef");
         menuBook.setStyle("-fx-background-color: #00adef");
         menuEdit.setStyle("-fx-background-color: #00adef");
         menuHistory.setStyle("-fx-background-color: #00adef");
         menuMyErrors.setStyle("-fx-background-color: #00adef");
-
+        //endregion
         //region MouseEntered + MouseExited
         menuHome.setOnMouseEntered(mouseEvent -> {
             System.out.println("hover");
@@ -102,7 +123,6 @@ public class EditEmployeeController {
             //menuHome.setStyle("-fx-background-color: #fcfcfc");
         });
         //endregion
-
         tcRoomName.setCellValueFactory(new PropertyValueFactory<Booking, String>("roomName"));
         tcTitle.setCellValueFactory(new PropertyValueFactory<Booking, String>("title"));
         tcDate.setCellValueFactory(new PropertyValueFactory<Booking, String>("date"));
@@ -110,24 +130,18 @@ public class EditEmployeeController {
         tcTimeStart.setCellValueFactory(new PropertyValueFactory<Booking, String>("timeStart"));
         tcTimeEnd.setCellValueFactory(new PropertyValueFactory<Booking, String>("timeEnd"));
         tcErrors.setCellValueFactory(new PropertyValueFactory<Booking, String>("errors"));
-    }
 
-    public void menuHomeClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.HOMEEMPLOYEE);
-    }
+        for (User user : users) {
+            if (user.getUsername().equals(Login.getInstance().getLoginUsername())) {
+                Login.getInstance().setLoginUserObj(user);
+            }
+        }
 
-    public void btnBookClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING);
+        populateTableview(Login.getInstance().getLoginUserObj());
     }
-
-    public void btnEditClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.EDITEMPLOYEE);
-    }
-
-    public void btnConfirmClick(ActionEvent actionEvent) {
-    }
-
-    public void btnHistoryClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSEMPLOYEE);
+    public void populateTableview(User user) {
+        bookingDAOImpl bDao = new bookingDAOImpl();
+        ObservableList<Booking> list = FXCollections.observableArrayList(bDao.getBookingsByID(user.getUserID()));
+        tableviewBookings.setItems(list);
     }
 }
