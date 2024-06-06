@@ -1,5 +1,7 @@
 package com.example.roombookingsystem.application.controller;
 
+import com.example.roombookingsystem.application.FxmlView;
+import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.AvailableTimes;
 import com.example.roombookingsystem.foundation.Booking;
 import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
@@ -12,11 +14,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
 import java.awt.print.Book;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.stream.Collectors;
+
 
 public class AdHocController {
     @FXML
@@ -42,11 +46,14 @@ public class AdHocController {
     @FXML
     TableColumn<AvailableTimes, String> timeEndColumn;
     @FXML
+    TableColumn<AvailableTimes, String> roomSizeColumn;
+    @FXML
     TableColumn<AvailableTimes, String> errorsColumn;
     @FXML
     TableColumn<AvailableTimes, String> actionColumn;
 
     ObservableList<AvailableTimes> data;
+    public static AvailableTimes selectedRoom;
 
     public void initialize() {
         spBooking Bookings = new spBooking();
@@ -73,6 +80,7 @@ public class AdHocController {
         roomNameColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("roomName"));
         timeStartColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("timeStart"));
         timeEndColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("timeEnd"));
+        roomSizeColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("roomSize"));
         errorsColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("errorsText"));
         actionColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("actionText"));
 
@@ -89,7 +97,19 @@ public class AdHocController {
         });
         populateLokaleFilter();
         populateTidFilter();
+        RoomsTableView.setOnMouseClicked(event -> {
+            try {
+                selectedRoom = RoomsTableView.getSelectionModel().getSelectedItem();
+                if (selectedRoom != null) {
+                    RoomDetailsController controller = SceneSwitcher.getInstance().createDetailsPopUp(FxmlView.ROOMDETAILS);
+                    controller.setRoomDetails(selectedRoom);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
+
     private void populateLokaleFilter() {
         LokaleFilter.getItems().clear();
         LokaleFilter.getItems().add(new MenuItem("Alle Lokaler"));
