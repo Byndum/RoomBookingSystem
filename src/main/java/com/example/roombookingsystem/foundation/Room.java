@@ -8,6 +8,15 @@ public class Room {
     private boolean hasEquipment2;
     private boolean hasEquipment3;
     private boolean hasEquipment4;
+
+    public String getFaults() {
+        return faults;
+    }
+
+    public void setFaults(String faults) {
+        this.faults = faults;
+    }
+
     private String faults;
 
     public Room (int roomID, String roomName, int roomSize, boolean hasEquipment1, boolean hasEquipment2, boolean hasEquipment3, boolean hasEquipment4, String faults){

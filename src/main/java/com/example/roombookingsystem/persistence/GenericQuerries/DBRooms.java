@@ -20,17 +20,11 @@ public class DBRooms {
                 "    MAX(CASE WHEN re.fldEquipmentID = 1 THEN 'True' ELSE 'False' END) AS Equipment1,\n" +
                 "    MAX(CASE WHEN re.fldEquipmentID = 2 THEN 'True' ELSE 'False' END) AS Equipment2,\n" +
                 "    MAX(CASE WHEN re.fldEquipmentID = 3 THEN 'True' ELSE 'False' END) AS Equipment3,\n" +
-                "    MAX(CASE WHEN re.fldEquipmentID = 4 THEN 'True' ELSE 'False' END) AS Equipment4,\n" +
-                "    CASE \n" +
-                "       WHEN MAX(f.fldFaultStatusID) < 2 OR MAX(f.fldFaultStatusID) IS NULL THEN MAX(CONVERT(nvarchar(max), f.fldFaultTxt))\n" +
-                "       ELSE NULL\n" +
-                "   END AS Faults\n" +
+                "    MAX(CASE WHEN re.fldEquipmentID = 4 THEN 'True' ELSE 'False' END) AS Equipment4\n" +
                 "FROM \n" +
                 "    tblRoom r\n" +
                 "LEFT JOIN \n" +
                 "    tblRoomEquipment re ON r.fldRoomID = re.fldRoomID\n" +
-                "LEFT JOIN \n" +
-                "    tblFault f ON r.fldRoomID = f.fldRoomID\n" +
                 "GROUP BY \n" +
                 "    r.fldRoomID, r.fldRoomName, r.fldRoomSize";
         try {
@@ -45,12 +39,43 @@ public class DBRooms {
                         rs.getBoolean(5),
                         rs.getBoolean(6),
                         rs.getBoolean(7),
-                        rs.getString(8)
+                        ""
                 ));
+            }
+            rs.close();
+            ps.close();
+            connection.close();
+
+            return getFaults(rooms);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public ArrayList<Room> getFaults(ArrayList<Room> rooms)
+    {
+        try {
+            for (Room r : rooms) {
+
+                Connection connection = databaseConnection.getInstance();
+                String query = "SELECT fldFaultTxt FROM tblFault WHERE fldRoomID = ? AND fldFaultStatus < 3";
+                PreparedStatement ps = connection.prepareStatement(query);
+
+                ps.setInt(1, r.getRoomID());
+
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    r.setFaults(r.getFaults() + ", " + rs.getString(1));
+                }
+                rs.close();
+                ps.close();
+                connection.close();
             }
             return rooms;
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+                System.out.println("Error: " + e.getMessage());
         }
         return null;
     }
