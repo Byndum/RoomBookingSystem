@@ -38,4 +38,8 @@ public class AvailableTimes {
     public int getRoomSize() {
         return roomSize;
     }
+    @Override
+    public String toString() {
+        return roomName + " " + timeStart + " - " + timeEnd;
+    }
 }
