@@ -21,7 +21,10 @@ public class DBRooms {
                 "    MAX(CASE WHEN re.fldEquipmentID = 2 THEN 'True' ELSE 'False' END) AS Equipment2,\n" +
                 "    MAX(CASE WHEN re.fldEquipmentID = 3 THEN 'True' ELSE 'False' END) AS Equipment3,\n" +
                 "    MAX(CASE WHEN re.fldEquipmentID = 4 THEN 'True' ELSE 'False' END) AS Equipment4,\n" +
-                "    MAX(CONVERT(nvarchar(max), f.fldFaultTxt)) AS Faults\n" +
+                "    CASE \n" +
+                "       WHEN MAX(f.fldFaultStatusID) < 2 OR MAX(f.fldFaultStatusID) IS NULL THEN MAX(CONVERT(nvarchar(max), f.fldFaultTxt))\n" +
+                "       ELSE NULL\n" +
+                "   END AS Faults\n" +
                 "FROM \n" +
                 "    tblRoom r\n" +
                 "LEFT JOIN \n" +
