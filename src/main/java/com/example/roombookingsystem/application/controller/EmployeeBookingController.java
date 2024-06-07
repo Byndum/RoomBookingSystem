@@ -1,19 +1,27 @@
 package com.example.roombookingsystem.application.controller;
 
+import com.example.roombookingsystem.application.FxmlView;
+import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.AvailableTimes;
 import com.example.roombookingsystem.foundation.Room;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
 import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class EmployeeBookingController {
@@ -31,6 +39,8 @@ public class EmployeeBookingController {
     private DatePicker dpEnd;
     @FXML
     private ListView listViewAvailableTimes;
+    @FXML
+    private ListView listViewDesiredBookings;
 
     private Date dStart;
     private Date dEnd;
@@ -113,5 +123,22 @@ public class EmployeeBookingController {
         for (AvailableTimes at : availableTimesArrayList) {
             listViewAvailableTimes.getItems().add(at);
         }
+    }
+
+    public void btnAddClick(MouseEvent mouseEvent) throws IOException {
+        Node source = (Node) mouseEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        SceneSwitcher.getInstance().setPreviousLoadedStage(stage);
+        SceneSwitcher.getInstance().getPreviouseLoadedStage().setUserData(this);
+        SceneSwitcher.getInstance().createPopUp(FxmlView.EDITTIMEBOOKING);
+    }
+    public void updateTable(Time desiredStartTime, Time desiredEndTime) {
+        AvailableTimes tempItem = (AvailableTimes) listViewAvailableTimes.getSelectionModel().getSelectedItem();
+        tempItem.setTimeStart(Time.valueOf(LocalTime.now()));
+        tempItem.setTimeEnd(Time.valueOf(LocalTime.now()));
+        listViewDesiredBookings.getItems().add(tempItem);
+    }
+    public ListView getListViewAvailableTimes() {
+        return listViewAvailableTimes;
     }
 }

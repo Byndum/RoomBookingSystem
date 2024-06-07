@@ -17,8 +17,8 @@
       <Label layoutX="119.0" layoutY="133.0" text="Ledige" />
       <Label layoutX="399.0" layoutY="133.0" text="I gang" />
       <ListView fx:id="listViewAvailableTimes" layoutX="37.0" layoutY="150.0" prefHeight="196.0" prefWidth="200.0" />
-      <ListView layoutX="316.0" layoutY="150.0" prefHeight="196.0" prefWidth="200.0" />
-      <Button layoutX="263.0" layoutY="188.0" mnemonicParsing="false" text="-&gt;" />
+      <ListView fx:id="listViewDesiredBookings" layoutX="316.0" layoutY="150.0" prefHeight="196.0" prefWidth="200.0" />
+      <Button layoutX="263.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#btnAddClick" text="-&gt;" />
       <Button layoutX="263.0" layoutY="228.0" mnemonicParsing="false" text="&lt;-" />
       <Button layoutX="437.0" layoutY="353.0" mnemonicParsing="false" text="Book valgte" />
    </children>
