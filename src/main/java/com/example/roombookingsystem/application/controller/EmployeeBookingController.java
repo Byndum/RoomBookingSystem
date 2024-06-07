@@ -35,6 +35,7 @@ public class EmployeeBookingController {
     private Date dStart;
     private Date dEnd;
     private spBooking DBSPBooking = new spBooking();
+    private ArrayList<AvailableTimes> desiredBookings = new ArrayList<>();
 
     @FXML
     public void initialize() {
