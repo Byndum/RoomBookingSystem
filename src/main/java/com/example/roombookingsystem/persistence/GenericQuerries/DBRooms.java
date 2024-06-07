@@ -61,9 +61,7 @@ public class DBRooms {
                 ps.close();
             }
 
-            connection.close();
-
-            return rooms;//getFaults(rooms);
+            return rooms;
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
