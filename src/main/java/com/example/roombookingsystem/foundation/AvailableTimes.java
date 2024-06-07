@@ -43,6 +43,12 @@ public class AvailableTimes {
     public String getFaults() {
         return faults;
     }
+    public Time setTimeStart(Time timeStart) {
+        return this.timeStart = timeStart;
+    }
+    public Time setTimeEnd(Time timeEnd) {
+        return this.timeEnd = timeEnd;
+    }
 
     @Override
     public String toString() {

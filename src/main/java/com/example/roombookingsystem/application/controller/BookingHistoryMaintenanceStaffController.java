@@ -55,7 +55,7 @@ public class BookingHistoryMaintenanceStaffController {
     //endregion
     @FXML
     void btnBookClick(MouseEvent event) throws IOException {
-        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING, this);
+        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING);
     }
     @FXML
     void btnEditClick(MouseEvent event) throws IOException {

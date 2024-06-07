@@ -140,7 +140,7 @@ public class EditAdminController {
     }
 
     public void btnBookClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING, this);
+        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING);
     }
 
     public void btnEditClick(MouseEvent mouseEvent) throws IOException {

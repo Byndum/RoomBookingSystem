@@ -50,11 +50,11 @@ public class SceneSwitcher {
         primaryStage.show();
     }
 
-    public void createPopUp(FxmlView view, Object controller) throws IOException {
+    public void createPopUp(FxmlView view) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(view.getPath()));
         Scene scene = new Scene(root, view.getWidth(), view.getHeight());
         secondaryStage = new Stage();
-        secondaryStage.setUserData(controller);
+        //secondaryStage.setUserData(controller);
         secondaryStage.setScene(scene);
         secondaryStage.show();
         secondaryStage.setResizable(false);

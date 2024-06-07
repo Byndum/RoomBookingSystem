@@ -7,6 +7,7 @@ import com.example.roombookingsystem.foundation.Room;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
 import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -17,8 +18,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class EmployeeBookingController {
@@ -123,10 +126,19 @@ public class EmployeeBookingController {
     }
 
     public void btnAddClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().setPreviousLoadedStage((Stage) BulkLabel.getScene().getWindow());
-        SceneSwitcher.getInstance().createPopUp(FxmlView.EDITTIMEBOOKING, this);
+        Node source = (Node) mouseEvent.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        SceneSwitcher.getInstance().setPreviousLoadedStage(stage);
+        SceneSwitcher.getInstance().getPreviouseLoadedStage().setUserData(this);
+        SceneSwitcher.getInstance().createPopUp(FxmlView.EDITTIMEBOOKING);
     }
-    public void updateTable(String idfk) {
-        listViewDesiredBookings.getItems().add(idfk);
+    public void updateTable(Time desiredStartTime, Time desiredEndTime) {
+        AvailableTimes tempItem = (AvailableTimes) listViewAvailableTimes.getSelectionModel().getSelectedItem();
+        tempItem.setTimeStart(Time.valueOf(LocalTime.now()));
+        tempItem.setTimeEnd(Time.valueOf(LocalTime.now()));
+        listViewDesiredBookings.getItems().add(tempItem);
+    }
+    public ListView getListViewAvailableTimes() {
+        return listViewAvailableTimes;
     }
 }
