@@ -2,9 +2,10 @@ package com.example.roombookingsystem.application.controller;
 
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
+import com.example.roombookingsystem.foundation.AdHoc;
 import com.example.roombookingsystem.foundation.AvailableTimes;
-import com.example.roombookingsystem.foundation.Booking;
-import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
+import com.example.roombookingsystem.foundation.Room;
+import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
 import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,12 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
-import java.awt.print.Book;
 import java.io.IOException;
 import java.sql.Date;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.stream.Collectors;
 
 
@@ -34,32 +31,34 @@ public class AdHocController {
     @FXML
     Label ClockLabel;
     @FXML
-    MenuButton LokaleFilter;
+    MenuButton RoomFilter;
     @FXML
-    MenuButton TidFilter;
+    MenuButton TimeFilter;
     @FXML
-    TableView<AvailableTimes> RoomsTableView;
+    TableView<AdHoc> RoomsTableView;
     @FXML
-    TableColumn<AvailableTimes, String> roomNameColumn;
+    TableColumn<AdHoc, String> roomNameColumn;
     @FXML
-    TableColumn<AvailableTimes, String> timeStartColumn;
+    TableColumn<AdHoc, String> timeStartColumn;
     @FXML
-    TableColumn<AvailableTimes, String> timeEndColumn;
+    TableColumn<AdHoc, String> timeEndColumn;
     @FXML
-    TableColumn<AvailableTimes, String> roomSizeColumn;
+    TableColumn<AdHoc, String> roomSizeColumn;
     @FXML
-    TableColumn<AvailableTimes, String> errorsColumn;
+    TableColumn<AdHoc, String> errorsColumn;
     @FXML
-    TableColumn<AvailableTimes, String> actionColumn;
+    TableColumn<AdHoc, String> actionColumn;
 
-    ObservableList<AvailableTimes> data;
-    public static AvailableTimes selectedRoom;
+    ObservableList<AdHoc> data;
+    public static AdHoc selectedRoom;
+
 
     public void initialize() {
         spBooking Bookings = new spBooking();
+        DBRooms rooms = new DBRooms();
         Date date = new Date(System.currentTimeMillis());
         System.out.println(date);
-        data = FXCollections.observableArrayList(Bookings.getAvailableTimesFilter(
+        data = FXCollections.observableArrayList(AdHoc.getRoomArray(Bookings.getAvailableTimesFilter(
                 date,
                 null,
                 null,
@@ -69,7 +68,8 @@ public class AdHocController {
                 false,
                 false,
                 0
-        ));
+        ), rooms.getAllRooms()));
+
         DatoLabel.setText(java.time.LocalDate.now().toString());
         ClockLabel.setText(java.time.LocalTime.now().toString());
 
@@ -77,12 +77,12 @@ public class AdHocController {
         filterButton.setLayoutY(370);
         RoomsTableView.setPrefHeight(340);
 
-        roomNameColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("roomName"));
-        timeStartColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("timeStart"));
-        timeEndColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("timeEnd"));
-        roomSizeColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("roomSize"));
-        errorsColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("errorsText"));
-        actionColumn.setCellValueFactory(new PropertyValueFactory<AvailableTimes, String>("actionText"));
+        roomNameColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("roomName"));
+        timeStartColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("timeStart"));
+        timeEndColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("timeEnd"));
+        roomSizeColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("roomSize"));
+        errorsColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("faults"));
+        actionColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("actionText"));
 
         RoomsTableView.setItems(data);
         filterButton.setOnMouseClicked(event -> {
@@ -111,26 +111,26 @@ public class AdHocController {
     }
 
     private void populateLokaleFilter() {
-        LokaleFilter.getItems().clear();
-        LokaleFilter.getItems().add(new MenuItem("Alle Lokaler"));
+        RoomFilter.getItems().clear();
+        RoomFilter.getItems().add(new MenuItem("Alle Lokaler"));
         data.stream()
-                .map(AvailableTimes::getRoomName)
+                .map(AdHoc::getRoomName)
                 .distinct()
                 .forEach(lokale -> {
                     MenuItem menuItem = new MenuItem(lokale);
                     menuItem.setOnAction(event -> filterByRoom(lokale));
-                    LokaleFilter.getItems().add(menuItem);
+                    RoomFilter.getItems().add(menuItem);
                 });
-        LokaleFilter.getItems().get(0).setOnAction(event -> RoomsTableView.setItems(data));  // all
+        RoomFilter.getItems().get(0).setOnAction(event -> RoomsTableView.setItems(data));  // all
     }
     private void filterByRoom(String roomNumber) {
-        ObservableList<AvailableTimes> filteredData = data.stream()
+        ObservableList<AdHoc> filteredData = data.stream()
                 .filter(room -> room.getRoomName().equals(roomNumber))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         RoomsTableView.setItems(filteredData);
     }
     private void populateTidFilter() {
-        TidFilter.getItems().forEach(menuItem -> {
+        TimeFilter.getItems().forEach(menuItem -> {
             menuItem.setOnAction(event -> {
                 String time = menuItem.getText();
                 if ("Alle tider".equals(time)) {
@@ -142,7 +142,7 @@ public class AdHocController {
         });
     }
     private void filterByTime(String time) {
-        ObservableList<AvailableTimes> filteredData = data.stream()
+        ObservableList<AdHoc> filteredData = data.stream()
                 .filter(room -> room.getTimeStart().equals(time))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         RoomsTableView.setItems(filteredData);
