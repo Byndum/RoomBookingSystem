@@ -37,6 +37,7 @@ public class SceneSwitcher {
         Scene scene = new Scene(root, view.getWidth(), view.getHeight());
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
     public void createPopUp(FxmlView view) throws IOException {
@@ -45,6 +46,7 @@ public class SceneSwitcher {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
     }
 
     public RoomDetailsController createDetailsPopUp(FxmlView view) throws IOException {

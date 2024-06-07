@@ -9,9 +9,6 @@ public class Room {
     private boolean hasEquipment3;
     private boolean hasEquipment4;
 
-    public String getFaults() {
-        return faults;
-    }
 
     public void setFaults(String faults) {
         this.faults = faults;
@@ -29,6 +26,7 @@ public class Room {
         this.hasEquipment4 = hasEquipment4;
         this.faults = faults;
     }
+
     public int getRoomID() {
         return roomID;
     }
@@ -37,17 +35,30 @@ public class Room {
         return roomName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
     public int getRoomSize() {
         return roomSize;
     }
 
-    public void setRoomSize(int roomSize) {
-        this.roomSize = roomSize;
+    public boolean isHasEquipment1() {
+        return hasEquipment1;
     }
+
+    public boolean isHasEquipment2() {
+        return hasEquipment2;
+    }
+
+    public boolean isHasEquipment3() {
+        return hasEquipment3;
+    }
+
+    public boolean isHasEquipment4() {
+        return hasEquipment4;
+    }
+
+    public String getFaults() {
+        return faults;
+    }
+
     @Override
     public String toString() {
         return roomName;

@@ -44,38 +44,26 @@ public class DBRooms {
             }
             rs.close();
             ps.close();
-            connection.close();
 
-            return getFaults(rooms);
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return null;
-    }
-
-    public ArrayList<Room> getFaults(ArrayList<Room> rooms)
-    {
-        try {
             for (Room r : rooms) {
-
-                Connection connection = databaseConnection.getInstance();
-                String query = "SELECT fldFaultTxt FROM tblFault WHERE fldRoomID = ? AND fldFaultStatus < 3";
-                PreparedStatement ps = connection.prepareStatement(query);
+                query = "SELECT fldFaultTxt FROM tblFault WHERE fldRoomID = ? AND fldFaultStatusID < 3";
+                ps = connection.prepareStatement(query);
+                ps.clearParameters();
 
                 ps.setInt(1, r.getRoomID());
 
-                ResultSet rs = ps.executeQuery();
+                rs = ps.executeQuery();
 
                 while (rs.next()) {
                     r.setFaults(r.getFaults() + ", " + rs.getString(1));
                 }
                 rs.close();
                 ps.close();
-                connection.close();
             }
+
             return rooms;
         } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
         return null;
     }

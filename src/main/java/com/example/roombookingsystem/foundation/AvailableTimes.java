@@ -8,7 +8,7 @@ public class AvailableTimes {
     private Time timeStart;
     private Time timeEnd;
     private int roomSize;
-    private String errorsText;
+    private String faults;
     private String actionsText;
 
     public AvailableTimes(int roomID, String roomName, int roomSize, Time timeStart, Time timeEnd) {
@@ -17,6 +17,7 @@ public class AvailableTimes {
         this.roomSize = roomSize;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
+        this.faults = "!";
     }
 
     public int getRoomID() {
@@ -38,6 +39,11 @@ public class AvailableTimes {
     public int getRoomSize() {
         return roomSize;
     }
+
+    public String getFaults() {
+        return faults;
+    }
+
     @Override
     public String toString() {
         return roomName + " " + timeStart + " - " + timeEnd;
