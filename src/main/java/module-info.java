@@ -14,14 +14,12 @@ module com.example.roombookingsystem {
 //    opens com.example.roombookingsystem.application to javafx.fxml;
 //    exports com.example.roombookingsystem.application.controller;
 //    opens com.example.roombookingsystem.application.controller to javafx.fxml;
-    exports com.example.roombookingsystem;
     exports com.example.roombookingsystem.application;
     exports com.example.roombookingsystem.application.controller;
     opens com.example.roombookingsystem.application.controller to javafx.fxml;
     exports com.example.roombookingsystem.domain;
     exports com.example.roombookingsystem.foundation;
     exports com.example.roombookingsystem.persistence.StoredProcedures;
-    exports com.example.roombookingsystem.presentation;
     exports com.example.roombookingsystem.services;
     exports com.example.roombookingsystem.persistence.CrudDAO;
 }

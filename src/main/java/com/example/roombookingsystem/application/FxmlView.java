@@ -14,9 +14,6 @@ public enum FxmlView {
     MYBOOKINGSMAINTENANCESTAFF("/com/example/roombookingsystem/myBookingsMaintenanceStaff-view.fxml",1280,720),
     ADHOC("/com/example/roombookingsystem/ad-Hoc-view.fxml",600,400),
     ROOMDETAILS("/com/example/roombookingsystem/roomDetails-view.fxml",354,458);
-
-
-
     private final String path;
     private final int width;
     private final int height;
