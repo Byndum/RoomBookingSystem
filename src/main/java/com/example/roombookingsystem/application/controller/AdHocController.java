@@ -7,6 +7,7 @@ import com.example.roombookingsystem.foundation.AvailableTimes;
 import com.example.roombookingsystem.foundation.Room;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
 import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -81,8 +82,13 @@ public class AdHocController {
         timeStartColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("timeStart"));
         timeEndColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("timeEnd"));
         roomSizeColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("roomSize"));
-        errorsColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("faults"));
+        errorsColumn.setCellValueFactory(cellData -> {
+            AdHoc adHoc = cellData.getValue();
+            return new SimpleStringProperty(adHoc.hasErrors() ? "ⓘ" : "");
+        });
         actionColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("actionText"));
+
+
 
         RoomsTableView.setItems(data);
         filterButton.setOnMouseClicked(event -> {

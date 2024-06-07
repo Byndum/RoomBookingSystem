@@ -37,6 +37,7 @@ public class RoomDetailsController {
         selectedRoomWBboard.setText(room.isHasEquipment2() ?    "  Ja" : "  Nej");
         selectedRoomSpeakers.setText(room.isHasEquipment3() ?   "  Ja"  : "  Nej");
         selectedRoomPower.setText(room.isHasEquipment4() ?      "  Ja" : "  Nej");
+        selectedRoomErrors.setText("Fejl: " + room.getFaults());
     }
 
 
