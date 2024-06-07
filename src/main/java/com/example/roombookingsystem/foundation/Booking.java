@@ -19,6 +19,9 @@ public class Booking {
     public Time getTimeStart() {
         return timeStart;
     }
+    public void setTimeStart(Time TimeStart) {
+        this.timeStart =  TimeStart;
+    }
     public Time getTimeEnd() {
         return timeEnd;
     }
@@ -43,9 +46,6 @@ public class Booking {
         this.date = date;
     }
 
-    public void setTimeStart(Time timeStart) {
-        this.timeStart = timeStart;
-    }
 
     public void setTimeEnd(Time timeEnd) {
         this.timeEnd = timeEnd;

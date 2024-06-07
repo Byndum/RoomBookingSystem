@@ -2,13 +2,19 @@ package com.example.roombookingsystem.application.controller;
 
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
+import com.example.roombookingsystem.services.CSVConverter;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class HomeAdminController {
+    public Button PrintCSVFile;
     //region FXML declarations
     @FXML
     private StackPane menuHome;
@@ -25,6 +31,8 @@ public class HomeAdminController {
     @FXML
     private StackPane menuAllErrors;
     //endregion
+
+    CSVConverter PrintMethod = new CSVConverter();
 
     @FXML
     public void initialize() {
@@ -116,5 +124,16 @@ public class HomeAdminController {
 
     public void btnHistoryClick(MouseEvent mouseEvent) throws IOException {
         SceneSwitcher.getInstance().switchScene(FxmlView.MYBOOKINGSADMIN);
+    }
+
+    public void btnPrintCSV(MouseEvent mouseEvent) {
+        try {
+            String timestamp = new SimpleDateFormat("dd.MM.yyyy_HH;mm;ss").format(new Date());
+
+            // Export bookings to CSV
+            PrintMethod.exportBookedHistoryToCSV("C:\\Java\\RoomBookingSystem\\src\\main\\resources\\com\\example\\roombookingsystem\\CSVFiles\\Statistic Date; "+timestamp);
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

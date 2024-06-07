@@ -57,6 +57,7 @@ public class SceneSwitcher {
         secondaryStage.setUserData(controller);
         secondaryStage.setScene(scene);
         secondaryStage.show();
+        secondaryStage.setResizable(false);
     }
 
     public RoomDetailsController createDetailsPopUp(FxmlView view) throws IOException {
