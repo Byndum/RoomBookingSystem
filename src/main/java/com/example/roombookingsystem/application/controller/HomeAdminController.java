@@ -107,7 +107,7 @@ public class HomeAdminController {
     }
 
     public void btnBookClick(MouseEvent mouseEvent) throws IOException {
-        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING);
+        SceneSwitcher.getInstance().createPopUp(FxmlView.EMPLOYEEBOOKING, this);
     }
 
     public void btnEditClick(MouseEvent mouseEvent) throws IOException {

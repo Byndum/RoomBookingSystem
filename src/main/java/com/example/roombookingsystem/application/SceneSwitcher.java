@@ -14,6 +14,8 @@ import static com.example.roombookingsystem.application.controller.AdHocControll
 public class SceneSwitcher {
     private static SceneSwitcher instance;
     private Stage primaryStage;
+    private Stage secondaryStage;
+    private Stage previousLoadedStage;
 
     private SceneSwitcher() {}
 
@@ -27,9 +29,18 @@ public class SceneSwitcher {
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
+    public void setPreviousLoadedStage(Stage previousLoadedStage) {
+        this.previousLoadedStage = previousLoadedStage;
+    }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+    public Stage getPreviouseLoadedStage() {
+        return previousLoadedStage;
+    }
+    public Stage getSecondaryStage() {
+        return secondaryStage;
     }
 
     public void switchScene(FxmlView view) throws IOException {
@@ -39,12 +50,13 @@ public class SceneSwitcher {
         primaryStage.show();
     }
 
-    public void createPopUp(FxmlView view) throws IOException {
+    public void createPopUp(FxmlView view, Object controller) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(view.getPath()));
         Scene scene = new Scene(root, view.getWidth(), view.getHeight());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+        secondaryStage = new Stage();
+        secondaryStage.setUserData(controller);
+        secondaryStage.setScene(scene);
+        secondaryStage.show();
     }
 
     public RoomDetailsController createDetailsPopUp(FxmlView view) throws IOException {
