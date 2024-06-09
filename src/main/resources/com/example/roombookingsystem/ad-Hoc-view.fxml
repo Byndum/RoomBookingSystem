@@ -41,11 +41,11 @@
               </items>
             </MenuButton>
             <Label layoutX="420.0" layoutY="18.0" text="Tid fra" />
-            <CheckBox layoutX="82.0" layoutY="56.0" mnemonicParsing="false" text="Projektor" />
-            <CheckBox layoutX="172.0" layoutY="56.0" mnemonicParsing="false" text="Højtaler" />
-            <CheckBox layoutX="256.0" layoutY="56.0" mnemonicParsing="false" text="Bord-strøm" />
-            <CheckBox layoutX="353.0" layoutY="56.0" mnemonicParsing="false" text="Tavle" />
-            <Button layoutX="529.0" layoutY="73.0" mnemonicParsing="false" text="Anvend" />
+            <CheckBox fx:id="projektorCheck" layoutX="82.0" layoutY="56.0" mnemonicParsing="false" text="Projektor" />
+            <CheckBox fx:id="SpeakerCheck" layoutX="172.0" layoutY="56.0" mnemonicParsing="false" text="Højtaler" />
+            <CheckBox fx:id="PowerCheck" layoutX="256.0" layoutY="56.0" mnemonicParsing="false" text="Bord-strøm" />
+            <CheckBox fx:id="WBoardCheck" layoutX="353.0" layoutY="56.0" mnemonicParsing="false" text="Tavle" />
+            <Button fx:id="ConfirmButton" layoutX="529.0" layoutY="73.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" text="Anvend" />
          </children>
       </Pane>
       <Button fx:id="filterButton" layoutX="535.0" layoutY="270.0" mnemonicParsing="false" text="Filtrer" />

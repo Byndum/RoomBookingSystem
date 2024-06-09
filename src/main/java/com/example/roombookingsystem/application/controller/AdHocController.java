@@ -10,6 +10,7 @@ import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -49,6 +50,14 @@ public class AdHocController {
     TableColumn<AdHoc, String> errorsColumn;
     @FXML
     TableColumn<AdHoc, String> actionColumn;
+    @FXML
+    CheckBox projektorCheck;
+    @FXML
+    CheckBox SpeakerCheck;
+    @FXML
+    CheckBox PowerCheck;
+    @FXML
+    CheckBox WBoardCheck;
 
     ObservableList<AdHoc> data;
     public static AdHoc selectedRoom;
@@ -87,8 +96,6 @@ public class AdHocController {
             return new SimpleStringProperty(adHoc.hasErrors() ? "ⓘ" : "");
         });
         actionColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("actionText"));
-
-
 
         RoomsTableView.setItems(data);
         filterButton.setOnMouseClicked(event -> {
@@ -152,5 +159,31 @@ public class AdHocController {
                 .filter(room -> room.getTimeStart().equals(time))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         RoomsTableView.setItems(filteredData);
+    }
+
+    public void onConfirmButtonClick(ActionEvent actionEvent) {
+
+        spBooking Bookings = new spBooking();
+        DBRooms rooms = new DBRooms();
+        Date date = new Date(System.currentTimeMillis());
+
+        boolean filterByProjektor = projektorCheck.isSelected();
+        boolean filterBySpeaker = SpeakerCheck.isSelected();
+        boolean filterByPower = PowerCheck.isSelected();
+        boolean filterByWboard = WBoardCheck.isSelected();
+
+        data = FXCollections.observableArrayList(AdHoc.getRoomArray(Bookings.getAvailableTimesFilter(
+                date,
+                null,
+                null,
+                0,
+                filterByProjektor,
+                filterBySpeaker,
+                filterByPower,
+                filterByWboard,
+                0
+        ), rooms.getAllRooms()));
+
+        RoomsTableView.setItems(data);
     }
 }
