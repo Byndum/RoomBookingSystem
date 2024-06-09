@@ -42,7 +42,7 @@ public class EditTimeBookingController {
     }
 
     public void btnConfirmClick(MouseEvent mouseEvent) {
-        controller.updateTable(Time.valueOf(LocalTime.now()), Time.valueOf(LocalTime.now()));
+        controller.updateTable(Time.valueOf(timeStart.getSelectionModel().getSelectedItem().toLocalTime()), Time.valueOf(timeEnd.getSelectionModel().getSelectedItem().toLocalTime()));
         ((Stage) btnConfirm.getScene().getWindow()).close();
     }
 }

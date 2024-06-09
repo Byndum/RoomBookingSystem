@@ -3,7 +3,10 @@ package com.example.roombookingsystem.application.controller;
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.AvailableTimes;
+import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.foundation.Login;
 import com.example.roombookingsystem.foundation.Room;
+import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
 import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.fxml.FXML;
@@ -45,6 +48,7 @@ public class EmployeeBookingController {
     private Date dStart;
     private Date dEnd;
     private spBooking DBSPBooking = new spBooking();
+    private bookingDAOImpl bookingDAO = new bookingDAOImpl();
     private ArrayList<AvailableTimes> desiredBookings = new ArrayList<>();
 
     @FXML
@@ -134,11 +138,28 @@ public class EmployeeBookingController {
     }
     public void updateTable(Time desiredStartTime, Time desiredEndTime) {
         AvailableTimes tempItem = (AvailableTimes) listViewAvailableTimes.getSelectionModel().getSelectedItem();
-        tempItem.setTimeStart(Time.valueOf(LocalTime.now()));
-        tempItem.setTimeEnd(Time.valueOf(LocalTime.now()));
+        tempItem.setTimeStart(desiredStartTime);
+        tempItem.setTimeEnd(desiredEndTime);
         listViewDesiredBookings.getItems().add(tempItem);
+        desiredBookings.add(tempItem);
     }
     public ListView getListViewAvailableTimes() {
         return listViewAvailableTimes;
+    }
+
+    public void btnBookClick(MouseEvent mouseEvent) {
+        for (AvailableTimes at : desiredBookings) {
+            bookingDAO.addBooking(new Booking(
+                    0,
+                    "test",
+                    Date.valueOf(LocalDate.now()),
+                    at.getTimeStart(),
+                    at.getTimeEnd(),
+                    false,
+                    at.getRoomID(),
+                    at.getRoomName(),
+                    Login.getInstance().getLoginID()
+            ));
+        }
     }
 }

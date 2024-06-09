@@ -20,6 +20,6 @@
       <ListView fx:id="listViewDesiredBookings" layoutX="316.0" layoutY="150.0" prefHeight="196.0" prefWidth="200.0" />
       <Button layoutX="263.0" layoutY="188.0" mnemonicParsing="false" onMouseClicked="#btnAddClick" text="-&gt;" />
       <Button layoutX="263.0" layoutY="228.0" mnemonicParsing="false" text="&lt;-" />
-      <Button layoutX="437.0" layoutY="353.0" mnemonicParsing="false" text="Book valgte" />
+      <Button layoutX="437.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#btnBookClick" text="Book valgte" />
    </children>
 </Pane>
