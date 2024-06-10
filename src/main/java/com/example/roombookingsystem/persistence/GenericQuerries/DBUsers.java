@@ -1,7 +1,7 @@
 package com.example.roombookingsystem.persistence.GenericQuerries;
 
 import com.example.roombookingsystem.domain.User;
-import com.example.roombookingsystem.foundation.databaseConnection;
+import com.example.roombookingsystem.foundation.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ public class DBUsers {
     private ArrayList<User> users = new ArrayList<>();
 
     public ArrayList<User> getAllUsers() {
-        Connection con = databaseConnection.getInstance();
+        Connection con = DBConnection.getInstance();
         String query = "SELECT * FROM tblUser";
 
         try {

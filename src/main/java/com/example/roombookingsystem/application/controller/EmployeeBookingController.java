@@ -6,9 +6,9 @@ import com.example.roombookingsystem.foundation.AvailableTimes;
 import com.example.roombookingsystem.domain.Booking;
 import com.example.roombookingsystem.domain.Login;
 import com.example.roombookingsystem.domain.Room;
-import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
+import com.example.roombookingsystem.persistence.CrudDAO.BookingDAOImpl;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
-import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
+import com.example.roombookingsystem.persistence.StoredProcedures.SPBooking;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ChoiceBox;
@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.sql.Date;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class EmployeeBookingController {
@@ -47,8 +46,8 @@ public class EmployeeBookingController {
 
     private Date dStart;
     private Date dEnd;
-    private spBooking DBSPBooking = new spBooking();
-    private bookingDAOImpl bookingDAO = new bookingDAOImpl();
+    private SPBooking DBSPBooking = new SPBooking();
+    private BookingDAOImpl bookingDAO = new BookingDAOImpl();
     private ArrayList<AvailableTimes> desiredBookings = new ArrayList<>();
 
     @FXML

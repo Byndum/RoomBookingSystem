@@ -1,6 +1,6 @@
 package com.example.roombookingsystem.domain;
 
-import com.example.roombookingsystem.foundation.databaseConnection;
+import com.example.roombookingsystem.foundation.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,7 +37,7 @@ public class Login {
     }
 
     public void login(String username, String password) throws SQLException {
-        Connection con = databaseConnection.getInstance();
+        Connection con = DBConnection.getInstance();
         PreparedStatement ps = con.prepareStatement("SELECT fldUserID FROM tblUser WHERE fldUsername=? AND fldPassword=?");
         ps.setString(1, username);
         ps.setString(2, password);

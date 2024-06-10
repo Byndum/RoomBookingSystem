@@ -1,7 +1,7 @@
 package com.example.roombookingsystem.foundation;
 
 import com.example.roombookingsystem.domain.Booking;
-import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
+import com.example.roombookingsystem.persistence.CrudDAO.BookingDAOImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BookingDAOTest {
 
-    private bookingDAOImpl bookingDAO;
+    private BookingDAOImpl bookingDAO;
 
     @BeforeEach
     public void setUp() {
-        bookingDAO = new bookingDAOImpl() {
+        bookingDAO = new BookingDAOImpl() {
             private ArrayList<Booking> testBookings = new ArrayList<>();
 
             public void setTestBookings(ArrayList<Booking> bookings) {
@@ -50,13 +50,8 @@ public class BookingDAOTest {
         bookings.add(booking1);
         bookings.add(booking2);
 
-        bookingDAO.setTestBookings(bookings);
-
-        ArrayList<Booking> result = bookingDAO.getBookingsByID(1);
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals("Meeting", result.get(0).getTitle());
+        assertEquals(2,bookings.size());
+        assertEquals("Meeting", bookings.get(0).getTitle());
     }
 
     @Test

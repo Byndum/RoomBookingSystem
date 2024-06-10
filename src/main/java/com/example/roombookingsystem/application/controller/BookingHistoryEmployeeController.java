@@ -5,7 +5,7 @@ import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.domain.Booking;
 import com.example.roombookingsystem.domain.Login;
 import com.example.roombookingsystem.domain.User;
-import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
+import com.example.roombookingsystem.persistence.CrudDAO.BookingDAOImpl;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBUsers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -139,7 +139,7 @@ public class BookingHistoryEmployeeController {
         populateTableview(Login.getInstance().getLoginUserObj());
     }
     public void populateTableview(User user) {
-        bookingDAOImpl bDao = new bookingDAOImpl();
+        BookingDAOImpl bDao = new BookingDAOImpl();
         ObservableList<Booking> list = FXCollections.observableArrayList(bDao.getBookingsByID(user.getUserID()));
         tableviewBookings.setItems(list);
     }

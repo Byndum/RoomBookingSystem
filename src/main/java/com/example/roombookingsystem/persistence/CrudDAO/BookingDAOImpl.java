@@ -2,7 +2,7 @@ package com.example.roombookingsystem.persistence.CrudDAO;
 
 import com.example.roombookingsystem.domain.Booking;
 import com.example.roombookingsystem.foundation.bookingDAO;
-import com.example.roombookingsystem.foundation.databaseConnection;
+import com.example.roombookingsystem.foundation.DBConnection;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.Date;
 
-public class bookingDAOImpl implements bookingDAO {
+public class BookingDAOImpl implements bookingDAO {
 
     private static ArrayList<Booking> todaysBookings = new ArrayList<>();
     private List<Booking> testBookings; // Added for testing
@@ -18,7 +18,7 @@ public class bookingDAOImpl implements bookingDAO {
     public void addBooking(Booking booking) {
         String query = "INSERT INTO tblBooking (fldTitle, fldDate, fldTimeStart, fldTimeEnd, fldCatering, fldRoomID, fldUserID) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
-            Connection connection = databaseConnection.getInstance();
+            Connection connection = DBConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
 
             pstmt.setString(1, booking.getTitle());
@@ -39,7 +39,7 @@ public class bookingDAOImpl implements bookingDAO {
     public void deleteBooking(int id) {
         String query = "DELETE FROM tblBooking WHERE fldBookId = ?";
         try {
-            Connection connection = databaseConnection.getInstance();
+            Connection connection = DBConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
 
             pstmt.setInt(1, id);
@@ -66,7 +66,7 @@ public class bookingDAOImpl implements bookingDAO {
         ArrayList<Booking> array = new ArrayList<>();
         String query = "SELECT tblBooking.*, tblRoom.fldRoomName FROM tblBooking JOIN tblRoom ON tblBooking.fldRoomID = tblRoom.fldRoomID WHERE fldUserID = ?";
         try {
-            Connection connection = databaseConnection.getInstance();
+            Connection connection = DBConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
             pstmt.setInt(1, userID);
 
@@ -95,7 +95,7 @@ public class bookingDAOImpl implements bookingDAO {
         ArrayList<Booking> array = new ArrayList<>();
         String query = "SELECT tblBooking.*, tblRoom.fldRoomName FROM tblBooking JOIN tblRoom ON tblBooking.fldRoomID = tblRoom.fldRoomID";
         try {
-            Connection connection = databaseConnection.getInstance();
+            Connection connection = DBConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
 
             ResultSet resultSet = pstmt.executeQuery();
@@ -122,7 +122,7 @@ public class bookingDAOImpl implements bookingDAO {
     public void updateTodaysBookingsArrayList() {
         String query = "SELECT tblBooking.*, tblRoom.fldRoomName FROM tblBooking JOIN tblRoom ON tblBooking.fldRoomID = tblRoom.fldRoomID";
         try {
-            Connection connection = databaseConnection.getInstance();
+            Connection connection = DBConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
 
             ResultSet resultSet = pstmt.executeQuery();
@@ -150,7 +150,7 @@ public class bookingDAOImpl implements bookingDAO {
     public List<Booking> getBookingsForDateAndRoom(Date date, int roomId){
     String query = "SELECT * FROM tblBooking WHERE fldDate = ? AND fldRoomID = ?";
     try {
-        Connection connection = databaseConnection.getInstance();
+        Connection connection = DBConnection.getInstance();
         PreparedStatement pstmt = connection.prepareStatement(query);
 
         pstmt.setDate(1, date);
@@ -188,7 +188,7 @@ public class bookingDAOImpl implements bookingDAO {
                 " WHERE fldBookId = ?";
 
         try {
-            Connection connection = databaseConnection.getInstance();
+            Connection connection = DBConnection.getInstance();
             PreparedStatement pstmt = connection.prepareStatement(query);
 
             pstmt.setInt(1, booking.getRoomID());

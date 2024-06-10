@@ -1,7 +1,7 @@
 package com.example.roombookingsystem.services;
 
 import com.example.roombookingsystem.domain.Booking;
-import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
+import com.example.roombookingsystem.persistence.CrudDAO.BookingDAOImpl;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CSVConverter {
 
-    private final bookingDAOImpl BDI = new bookingDAOImpl();
+    private final BookingDAOImpl BDI = new BookingDAOImpl();
 
     public CSVConverter (){
     }

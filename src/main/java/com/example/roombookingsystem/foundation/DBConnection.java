@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class databaseConnection {
+public class DBConnection {
     // Instance
-    private static final databaseConnection INSTANCE;
+    private static final DBConnection INSTANCE;
 
     static {
         try {
-            INSTANCE = new databaseConnection();
+            INSTANCE = new DBConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -30,7 +30,7 @@ public class databaseConnection {
 
 
 
-    private databaseConnection() throws SQLException {
+    private DBConnection() throws SQLException {
         properties.setProperty("user", username);
         properties.setProperty("password", password);
         properties.setProperty("encrypt", "true");

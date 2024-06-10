@@ -4,7 +4,7 @@ import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.AdHoc;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
-import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
+import com.example.roombookingsystem.persistence.StoredProcedures.SPBooking;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -68,7 +68,7 @@ public class AdHocController {
 
 
     public void initialize() {
-        spBooking Bookings = new spBooking();
+        SPBooking Bookings = new SPBooking();
         DBRooms rooms = new DBRooms();
         Date date = new Date(System.currentTimeMillis());
         System.out.println(date);
@@ -172,7 +172,7 @@ public class AdHocController {
 
     public void onConfirmButtonClick(ActionEvent actionEvent) {
 
-        spBooking Bookings = new spBooking();
+        SPBooking Bookings = new SPBooking();
         DBRooms rooms = new DBRooms();
         Date date = new Date(System.currentTimeMillis());
 

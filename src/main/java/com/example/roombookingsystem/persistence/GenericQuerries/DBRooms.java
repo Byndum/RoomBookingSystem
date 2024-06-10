@@ -1,7 +1,7 @@
 package com.example.roombookingsystem.persistence.GenericQuerries;
 
 import com.example.roombookingsystem.domain.Room;
-import com.example.roombookingsystem.foundation.databaseConnection;
+import com.example.roombookingsystem.foundation.DBConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ public class DBRooms {
     ArrayList<Room> rooms = new ArrayList<>();
 
     public ArrayList<Room> getAllRooms() {
-        Connection connection = databaseConnection.getInstance();
+        Connection connection = DBConnection.getInstance();
         String query = "SELECT \n" +
                 "    r.fldRoomID,\n" +
                 "    r.fldRoomName,\n" +
