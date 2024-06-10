@@ -12,40 +12,17 @@
       <Line endX="499.0" endY="-1.1444091796875E-5" layoutX="101.0" layoutY="27.0" startX="-100.0" />
       <Pane fx:id="filterMenu" layoutY="294.0" prefHeight="106.0" prefWidth="600.0">
          <children>
-            <MenuButton fx:id="RoomFilter" layoutX="68.0" layoutY="14.0" mnemonicParsing="false" text="Vælg lokale">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-            </MenuButton>
-            <Label layoutX="28.0" layoutY="18.0" text="Lokale" />
-            <MenuButton layoutX="280.0" layoutY="14.0" mnemonicParsing="false" text="Vælg antal">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Action 2" />
-              </items>
-            </MenuButton>
+            <Label layoutX="27.0" layoutY="18.0" text="Lokale" />
             <Label layoutX="204.0" layoutY="18.0" text="Antal pladser" />
-            <MenuButton fx:id="TimeFilter" layoutX="457.0" layoutY="14.0" mnemonicParsing="false" text="Vælg tid">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Alle tider" />
-                <MenuItem mnemonicParsing="false" text="08:00" />
-                  <MenuItem mnemonicParsing="false" text="08:15" />
-                  <MenuItem mnemonicParsing="false" text="08:30" />
-                  <MenuItem mnemonicParsing="false" text="08:45" />
-                  <MenuItem mnemonicParsing="false" text="09:00" />
-                  <MenuItem mnemonicParsing="false" text="09:15" />
-                  <MenuItem mnemonicParsing="false" text="09:30" />
-                  <MenuItem mnemonicParsing="false" text="09:45" />
-                  <MenuItem mnemonicParsing="false" text="10:00" />
-              </items>
-            </MenuButton>
             <Label layoutX="420.0" layoutY="18.0" text="Tid fra" />
             <CheckBox fx:id="projektorCheck" layoutX="82.0" layoutY="56.0" mnemonicParsing="false" text="Projektor" />
             <CheckBox fx:id="SpeakerCheck" layoutX="172.0" layoutY="56.0" mnemonicParsing="false" text="Højtaler" />
             <CheckBox fx:id="PowerCheck" layoutX="256.0" layoutY="56.0" mnemonicParsing="false" text="Bord-strøm" />
             <CheckBox fx:id="WBoardCheck" layoutX="353.0" layoutY="56.0" mnemonicParsing="false" text="Tavle" />
             <Button fx:id="ConfirmButton" layoutX="529.0" layoutY="73.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" text="Anvend" />
+            <ChoiceBox fx:id="RoomFilter" layoutX="62.0" layoutY="14.0" prefHeight="25.0" prefWidth="89.0" />
+            <ChoiceBox fx:id="SpaceFilter" layoutX="275.0" layoutY="14.0" prefHeight="25.0" prefWidth="89.0" />
+            <ChoiceBox fx:id="TimeFilter" layoutX="454.0" layoutY="14.0" prefHeight="25.0" prefWidth="83.0" />
          </children>
       </Pane>
       <Button fx:id="filterButton" layoutX="535.0" layoutY="270.0" mnemonicParsing="false" text="Filtrer" />

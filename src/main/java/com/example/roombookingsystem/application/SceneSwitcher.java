@@ -1,5 +1,6 @@
 package com.example.roombookingsystem.application;
 
+import com.example.roombookingsystem.application.controller.AdHocController;
 import com.example.roombookingsystem.application.controller.RoomDetailsController;
 import com.example.roombookingsystem.foundation.AvailableTimes;
 import javafx.fxml.FXMLLoader;
@@ -60,11 +61,12 @@ public class SceneSwitcher {
         secondaryStage.setResizable(false);
     }
 
-    public RoomDetailsController createDetailsPopUp(FxmlView view) throws IOException {
+    public RoomDetailsController createDetailsPopUp(FxmlView view, AdHocController controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(view.getPath()));
         Parent root = loader.load();
         Scene scene = new Scene(root, view.getWidth(), view.getHeight());
         Stage stage = new Stage();
+        stage.setUserData(controller);
         stage.setScene(scene);
         stage.show();
         return loader.getController();

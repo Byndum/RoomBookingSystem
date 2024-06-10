@@ -20,10 +20,11 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.stream.Collectors;
-
 
 public class AdHocController {
     @FXML
@@ -37,9 +38,11 @@ public class AdHocController {
     @FXML
     Label ClockLabel;
     @FXML
-    MenuButton RoomFilter;
+    ChoiceBox RoomFilter;
     @FXML
-    MenuButton TimeFilter;
+    ChoiceBox TimeFilter;
+    @FXML
+    ChoiceBox SpaceFilter;
     @FXML
     TableView<AdHoc> RoomsTableView;
     @FXML
@@ -117,14 +120,16 @@ public class AdHocController {
                 RoomsTableView.setPrefHeight(340);
             }
         });
-        populateLokaleFilter();
-        populateTidFilter();
+        populateRoomFilter();
+        populateTimeFilter();
+
         RoomsTableView.setOnMouseClicked(event -> {
             try {
                 selectedRoom = RoomsTableView.getSelectionModel().getSelectedItem();
                 if (selectedRoom != null) {
-                    RoomDetailsController controller = SceneSwitcher.getInstance().createDetailsPopUp(FxmlView.ROOMDETAILS);
+                    RoomDetailsController controller = SceneSwitcher.getInstance().createDetailsPopUp(FxmlView.ROOMDETAILS,this);
                     controller.setRoomDetails(selectedRoom);
+                    controller.setTimes(selectedRoom.getTimeStart(), selectedRoom.getTimeEnd());
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -132,46 +137,78 @@ public class AdHocController {
         });
     }
 
-    private void populateLokaleFilter() {
+    public void refreshTableview() {
+        SPBooking Bookings = new SPBooking();
+        DBRooms rooms = new DBRooms();
+        Date date = new Date(System.currentTimeMillis());
+        data = FXCollections.observableArrayList(AdHoc.getRoomArray(Bookings.getAvailableTimesFilter(
+                date,
+                null,
+                null,
+                0,
+                false,
+                false,
+                false,
+                false,
+                0
+        ), rooms.getAllRooms()));
+        RoomsTableView.setItems(data);
+    }
+
+    private void populateRoomFilter() {
         RoomFilter.getItems().clear();
-        RoomFilter.getItems().add(new MenuItem("Alle Lokaler"));
-        data.stream()
-                .map(AdHoc::getRoomName)
-                .distinct()
-                .forEach(lokale -> {
-                    MenuItem menuItem = new MenuItem(lokale);
-                    menuItem.setOnAction(event -> filterByRoom(lokale));
-                    RoomFilter.getItems().add(menuItem);
-                });
-        RoomFilter.getItems().get(0).setOnAction(event -> RoomsTableView.setItems(data));  // all
-    }
-    private void filterByRoom(String roomNumber) {
-        ObservableList<AdHoc> filteredData = data.stream()
-                .filter(room -> room.getRoomName().equals(roomNumber))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        RoomsTableView.setItems(filteredData);
-    }
-    private void populateTidFilter() {
-        TimeFilter.getItems().forEach(menuItem -> {
-            menuItem.setOnAction(event -> {
-                String time = menuItem.getText();
-                if ("Alle tider".equals(time)) {
-                    RoomsTableView.setItems(data);
-                } else {
-                    filterByTime(time);
-                }
-            });
+        RoomFilter.getItems().add("Alle Lokaler");
+
+        // Collect distinct room names using a set
+        Set<String> roomNames = new HashSet<>();
+        for (AdHoc room : data) {
+            roomNames.add(room.getRoomName());
+        }
+
+        RoomFilter.getItems().addAll(roomNames);
+
+        // Add a listener to handle selection change
+        RoomFilter.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.equals("Alle Lokaler")) {
+                filterByRoom(newValue.toString());
+            } else {
+                RoomsTableView.setItems(data); // Show all rooms
+            }
         });
     }
-    private void filterByTime(String time) {
-        ObservableList<AdHoc> filteredData = data.stream()
-                .filter(room -> room.getTimeStart().equals(time))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+    private void filterByRoom(String roomNumber) {
+        ObservableList<AdHoc> filteredData = FXCollections.observableArrayList();
+        for (AdHoc room : data) {
+            if (room.getRoomName().equals(roomNumber)) {
+                filteredData.add(room);
+            }
+        }
+        RoomsTableView.setItems(filteredData);
+    }
+    private void populateTimeFilter() {
+        TimeFilter.getItems().clear();
+        Time tempTimeStart = new Time(8,0,0);
+        Time tempTime = tempTimeStart;
+        Time tempEndTime = new Time(16,0,0);
+
+
+        while(tempTime.toLocalTime().isBefore(tempEndTime.toLocalTime())){
+            TimeFilter.getItems().add(tempTime);
+            tempTime = Time.valueOf(tempTime.toLocalTime().plusMinutes(15));
+        }
+        TimeFilter.getSelectionModel().select(tempTimeStart);
+    }
+    private void tidFilter(String time) {
+        ObservableList<AdHoc> filteredData = FXCollections.observableArrayList();
+        for (AdHoc room : data) {
+            if (room.getTimeStart().toString().equals(time)) {
+                filteredData.add(room);
+            }
+        }
         RoomsTableView.setItems(filteredData);
     }
 
     public void onConfirmButtonClick(ActionEvent actionEvent) {
-
         SPBooking Bookings = new SPBooking();
         DBRooms rooms = new DBRooms();
         Date date = new Date(System.currentTimeMillis());
@@ -180,10 +217,11 @@ public class AdHocController {
         boolean filterBySpeaker = SpeakerCheck.isSelected();
         boolean filterByPower = PowerCheck.isSelected();
         boolean filterByWboard = WBoardCheck.isSelected();
+        Time filterByTime = (Time) TimeFilter.getSelectionModel().getSelectedItem();
 
         data = FXCollections.observableArrayList(AdHoc.getRoomArray(Bookings.getAvailableTimesFilter(
                 date,
-                null,
+                filterByTime,
                 null,
                 0,
                 filterByProjektor,
@@ -192,7 +230,6 @@ public class AdHocController {
                 filterByWboard,
                 0
         ), rooms.getAllRooms()));
-
         RoomsTableView.setItems(data);
     }
 }
