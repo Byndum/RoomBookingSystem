@@ -1,13 +1,9 @@
 package com.example.roombookingsystem.services;
-import com.example.roombookingsystem.foundation.Booking;
-import com.example.roombookingsystem.foundation.Room;
+import com.example.roombookingsystem.domain.Booking;
 import com.example.roombookingsystem.foundation.bookingDAO;
 import com.example.roombookingsystem.domain.TimeSlot;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;

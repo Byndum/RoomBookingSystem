@@ -1,7 +1,6 @@
 package com.example.roombookingsystem.persistence.StoredProcedures;
 
 import com.example.roombookingsystem.foundation.AvailableTimes;
-import com.example.roombookingsystem.foundation.Booking;
 import com.example.roombookingsystem.foundation.databaseConnection;
 
 import java.sql.*;

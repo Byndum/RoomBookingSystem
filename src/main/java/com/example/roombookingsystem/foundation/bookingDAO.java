@@ -1,5 +1,7 @@
 package com.example.roombookingsystem.foundation;
 
+import com.example.roombookingsystem.domain.Booking;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;

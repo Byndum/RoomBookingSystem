@@ -1,7 +1,7 @@
 package com.example.roombookingsystem.application.controller;
 
 import com.example.roombookingsystem.foundation.AvailableTimes;
-import com.example.roombookingsystem.foundation.Room;
+import com.example.roombookingsystem.domain.Room;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
 import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.fxml.FXML;

@@ -2,9 +2,9 @@ package com.example.roombookingsystem.application.controller;
 
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
-import com.example.roombookingsystem.foundation.Booking;
-import com.example.roombookingsystem.foundation.Login;
-import com.example.roombookingsystem.foundation.User;
+import com.example.roombookingsystem.domain.Booking;
+import com.example.roombookingsystem.domain.Login;
+import com.example.roombookingsystem.domain.User;
 import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBUsers;
 import javafx.collections.FXCollections;
@@ -16,7 +16,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;

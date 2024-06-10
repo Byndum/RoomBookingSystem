@@ -3,8 +3,6 @@ package com.example.roombookingsystem.application.controller;
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.AdHoc;
-import com.example.roombookingsystem.foundation.AvailableTimes;
-import com.example.roombookingsystem.foundation.Room;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
 import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
 import javafx.collections.FXCollections;

@@ -1,6 +1,6 @@
 package com.example.roombookingsystem.persistence.GenericQuerries;
 
-import com.example.roombookingsystem.foundation.Room;
+import com.example.roombookingsystem.domain.Room;
 import com.example.roombookingsystem.foundation.databaseConnection;
 
 import java.sql.Connection;

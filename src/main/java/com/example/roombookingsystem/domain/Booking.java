@@ -1,4 +1,4 @@
-package com.example.roombookingsystem.foundation;
+package com.example.roombookingsystem.domain;
 
 import java.sql.Date;
 import java.sql.Time;

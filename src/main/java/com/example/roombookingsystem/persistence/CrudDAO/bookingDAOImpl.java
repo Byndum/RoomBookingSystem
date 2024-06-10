@@ -1,6 +1,6 @@
 package com.example.roombookingsystem.persistence.CrudDAO;
 
-import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.domain.Booking;
 import com.example.roombookingsystem.foundation.bookingDAO;
 import com.example.roombookingsystem.foundation.databaseConnection;
 
@@ -8,13 +8,12 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalTime;
-import java.util.Locale;
 import java.sql.Date;
 
 public class bookingDAOImpl implements bookingDAO {
 
     private static ArrayList<Booking> todaysBookings = new ArrayList<>();
+    private List<Booking> testBookings; // Added for testing
 
     public void addBooking(Booking booking) {
         String query = "INSERT INTO tblBooking (fldTitle, fldDate, fldTimeStart, fldTimeEnd, fldCatering, fldRoomID, fldUserID) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -60,6 +59,10 @@ public class bookingDAOImpl implements bookingDAO {
 
     @Override
     public ArrayList<Booking> getBookingsByID(int userID) {
+        if (testBookings != null) {
+            return new ArrayList<>(testBookings); // Return test data
+        }
+
         ArrayList<Booking> array = new ArrayList<>();
         String query = "SELECT tblBooking.*, tblRoom.fldRoomName FROM tblBooking JOIN tblRoom ON tblBooking.fldRoomID = tblRoom.fldRoomID WHERE fldUserID = ?";
         try {
@@ -201,5 +204,8 @@ public class bookingDAOImpl implements bookingDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void setTestBookings(List<Booking> bookings) {
+        this.testBookings = bookings; // Added for testing
     }
 }

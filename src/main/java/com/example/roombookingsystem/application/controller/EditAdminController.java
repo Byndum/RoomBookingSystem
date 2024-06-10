@@ -2,9 +2,7 @@ package com.example.roombookingsystem.application.controller;
 
 import com.example.roombookingsystem.application.FxmlView;
 import com.example.roombookingsystem.application.SceneSwitcher;
-import com.example.roombookingsystem.foundation.Booking;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import com.example.roombookingsystem.domain.Booking;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;

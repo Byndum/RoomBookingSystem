@@ -1,5 +1,7 @@
 package com.example.roombookingsystem.foundation;
 
+import com.example.roombookingsystem.domain.Room;
+
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -35,6 +37,10 @@ public class AdHoc {
     private int roomSize;
     private boolean hasEquipment1;
     private boolean hasEquipment2;
+    private boolean hasEquipment3;
+    private boolean hasEquipment4;
+    private String faults;
+    private String actionText;
 
     public boolean isHasEquipment1() {
         return hasEquipment1;
@@ -67,11 +73,6 @@ public class AdHoc {
     public void setHasEquipment4(boolean hasEquipment4) {
         this.hasEquipment4 = hasEquipment4;
     }
-
-    private boolean hasEquipment3;
-    private boolean hasEquipment4;
-    private String faults;
-
 
     private AdHoc(int roomID, String roomName, Time timeStart, Time timeEnd, int roomSize) {
         this.roomID = roomID;
@@ -128,5 +129,13 @@ public class AdHoc {
             }
         }
         return AdHocRooms;
+    }
+
+    public String getActionText() {
+        return actionText;
+    }
+
+    public void setActionText(String actionText) {
+        this.actionText = actionText;
     }
 }

@@ -1,6 +1,6 @@
 package com.example.roombookingsystem.services;
 
-import com.example.roombookingsystem.foundation.Booking;
+import com.example.roombookingsystem.domain.Booking;
 import com.example.roombookingsystem.persistence.CrudDAO.bookingDAOImpl;
 
 import java.io.FileWriter;
@@ -11,7 +11,6 @@ import java.util.List;
 public class CSVConverter {
 
     private final bookingDAOImpl BDI = new bookingDAOImpl();
-    public Object exportBookedHistoryToCSV;
 
     public CSVConverter (){
     }

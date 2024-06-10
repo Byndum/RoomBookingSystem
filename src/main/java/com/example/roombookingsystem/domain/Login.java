@@ -1,4 +1,6 @@
-package com.example.roombookingsystem.foundation;
+package com.example.roombookingsystem.domain;
+
+import com.example.roombookingsystem.foundation.databaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

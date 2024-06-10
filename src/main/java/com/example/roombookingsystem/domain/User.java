@@ -1,4 +1,4 @@
-package com.example.roombookingsystem.foundation;
+package com.example.roombookingsystem.domain;
 
 public class User {
     private int userID;
