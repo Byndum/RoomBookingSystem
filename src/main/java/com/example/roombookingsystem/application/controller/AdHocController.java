@@ -5,15 +5,23 @@ import com.example.roombookingsystem.application.SceneSwitcher;
 import com.example.roombookingsystem.foundation.AdHoc;
 import com.example.roombookingsystem.persistence.GenericQuerries.DBRooms;
 import com.example.roombookingsystem.persistence.StoredProcedures.spBooking;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 
@@ -46,6 +54,14 @@ public class AdHocController {
     TableColumn<AdHoc, String> errorsColumn;
     @FXML
     TableColumn<AdHoc, String> actionColumn;
+    @FXML
+    CheckBox projektorCheck;
+    @FXML
+    CheckBox SpeakerCheck;
+    @FXML
+    CheckBox PowerCheck;
+    @FXML
+    CheckBox WBoardCheck;
 
     ObservableList<AdHoc> data;
     public static AdHoc selectedRoom;
@@ -69,7 +85,12 @@ public class AdHocController {
         ), rooms.getAllRooms()));
 
         DatoLabel.setText(java.time.LocalDate.now().toString());
-        ClockLabel.setText(java.time.LocalTime.now().toString());
+        Timeline time = new Timeline(new KeyFrame(Duration.ZERO,e ->
+                ClockLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")))),
+                new KeyFrame(Duration.seconds(1))
+        );
+        time.setCycleCount(Animation.INDEFINITE);
+        time.play();
 
         filterMenu.setVisible(false);
         filterButton.setLayoutY(370);
@@ -79,7 +100,10 @@ public class AdHocController {
         timeStartColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("timeStart"));
         timeEndColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("timeEnd"));
         roomSizeColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("roomSize"));
-        errorsColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("faults"));
+        errorsColumn.setCellValueFactory(cellData -> {
+            AdHoc adHoc = cellData.getValue();
+            return new SimpleStringProperty(adHoc.hasErrors() ? "ⓘ" : "");
+        });
         actionColumn.setCellValueFactory(new PropertyValueFactory<AdHoc, String>("actionText"));
 
         RoomsTableView.setItems(data);
@@ -144,5 +168,31 @@ public class AdHocController {
                 .filter(room -> room.getTimeStart().equals(time))
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
         RoomsTableView.setItems(filteredData);
+    }
+
+    public void onConfirmButtonClick(ActionEvent actionEvent) {
+
+        spBooking Bookings = new spBooking();
+        DBRooms rooms = new DBRooms();
+        Date date = new Date(System.currentTimeMillis());
+
+        boolean filterByProjektor = projektorCheck.isSelected();
+        boolean filterBySpeaker = SpeakerCheck.isSelected();
+        boolean filterByPower = PowerCheck.isSelected();
+        boolean filterByWboard = WBoardCheck.isSelected();
+
+        data = FXCollections.observableArrayList(AdHoc.getRoomArray(Bookings.getAvailableTimesFilter(
+                date,
+                null,
+                null,
+                0,
+                filterByProjektor,
+                filterBySpeaker,
+                filterByPower,
+                filterByWboard,
+                0
+        ), rooms.getAllRooms()));
+
+        RoomsTableView.setItems(data);
     }
 }

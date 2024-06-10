@@ -105,6 +105,9 @@ public class AdHoc {
     public String getFaults() {
         return faults;
     }
+    public boolean hasErrors() {
+        return faults != null && !faults.isEmpty();
+    }
 
     public static ArrayList<AdHoc> getRoomArray(ArrayList<AvailableTimes> atArray, ArrayList<Room> rArray) {
         ArrayList<AdHoc> AdHocRooms = new ArrayList<>();
