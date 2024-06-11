@@ -131,7 +131,7 @@ public class HomeAdminController {
             String timestamp = new SimpleDateFormat("dd.MM.yyyy_HH;mm;ss").format(new Date());
 
             // Export bookings to CSV
-            PrintMethod.exportBookedHistoryToCSV("C:\\Java\\RoomBookingSystem\\src\\main\\resources\\com\\example\\roombookingsystem\\CSVFiles\\Statistic Date; "+timestamp);
+            PrintMethod.exportBookedHistoryToCSV("./src/main/resources/com/example/roombookingsystem/CSVFiles/Statistic Date; "+timestamp);
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
