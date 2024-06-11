@@ -26,19 +26,25 @@ public class EditTimeBookingController {
 
     @FXML
     public void initialize() {
-        Time tempStartTime = ((AvailableTimes) controller.getListViewAvailableTimes()
+        Time initialStart = ((AvailableTimes) controller.getListViewAvailableTimes()
                 .getSelectionModel()
                 .getSelectedItem()).getTimeStart();
-        Time tempEndTime = ((AvailableTimes) controller.getListViewAvailableTimes()
+        Time initialEnd = ((AvailableTimes) controller.getListViewAvailableTimes()
                 .getSelectionModel()
                 .getSelectedItem()).getTimeEnd();
+        Time tempStartTime = initialStart;
+        Time tempEndTime = initialEnd;
         //newTime.toLocalTime().plusMinutes(15);
-        timeStart.getItems().add(tempStartTime);
-        timeEnd.getItems().add(tempEndTime);
-        while (tempStartTime.toLocalTime().isBefore(tempEndTime.toLocalTime())) {
-            timeStart.getItems().add(Time.valueOf(tempStartTime.toLocalTime().plusMinutes(15)));
-            timeEnd.getItems().add(Time.valueOf(tempStartTime.toLocalTime().plusMinutes(15)));
-        }
+        do {
+            timeStart.getItems().add(Time.valueOf(tempStartTime.toLocalTime()));
+            timeEnd.getItems().add(Time.valueOf(tempStartTime.toLocalTime()));
+
+            tempStartTime = Time.valueOf(tempStartTime.toLocalTime().plusMinutes(15));
+        } while (tempStartTime.toLocalTime().isBefore(tempEndTime.toLocalTime()));
+        timeEnd.getItems().add(Time.valueOf(tempEndTime.toLocalTime()));
+
+        timeStart.getSelectionModel().select(initialStart);
+        timeEnd.getSelectionModel().select(initialEnd);
     }
 
     public void btnConfirmClick(MouseEvent mouseEvent) {

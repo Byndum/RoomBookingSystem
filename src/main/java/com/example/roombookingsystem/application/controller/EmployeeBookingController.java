@@ -151,7 +151,7 @@ public class EmployeeBookingController {
             bookingDAO.addBooking(new Booking(
                     0,
                     "test",
-                    Date.valueOf(LocalDate.now()),
+                    Date.valueOf(dpStart.getValue()),
                     at.getTimeStart(),
                     at.getTimeEnd(),
                     false,
@@ -160,5 +160,6 @@ public class EmployeeBookingController {
                     Login.getInstance().getLoginID()
             ));
         }
+        desiredBookings.clear();
     }
 }
