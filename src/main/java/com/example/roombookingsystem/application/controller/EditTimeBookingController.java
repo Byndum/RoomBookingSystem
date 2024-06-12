@@ -34,7 +34,7 @@ public class EditTimeBookingController {
                 .getSelectedItem()).getTimeEnd();
         Time tempStartTime = initialStart;
         Time tempEndTime = initialEnd;
-        //newTime.toLocalTime().plusMinutes(15);
+
         do {
             timeStart.getItems().add(Time.valueOf(tempStartTime.toLocalTime()));
             timeEnd.getItems().add(Time.valueOf(tempStartTime.toLocalTime()));

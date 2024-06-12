@@ -13,23 +13,23 @@
       <StackPane fx:id="menuBackground" prefHeight="720.0" prefWidth="270.0" />
       <StackPane fx:id="menuHome" onMouseClicked="#menuHomeClick" prefHeight="108.5" prefWidth="270.0">
          <children>
-            <Label text="Start side" />
+            <Label text="Start side" textFill="WHITE" />
          </children></StackPane>
       <StackPane fx:id="menuBook" layoutY="108.0" onMouseClicked="#btnBookClick" prefHeight="102.5" prefWidth="270.0">
          <children>
-            <Label text="Book lokale" />
+            <Label text="Book lokale" textFill="WHITE" />
          </children></StackPane>
       <StackPane fx:id="menuEdit" layoutY="210.0" onMouseClicked="#btnEditClick" prefHeight="102.5" prefWidth="270.0">
          <children>
-            <Label text="Rediger booking" />
+            <Label text="Rediger booking" textFill="WHITE" />
          </children></StackPane>
       <StackPane fx:id="menuHistory" layoutY="312.0" onMouseClicked="#btnHistoryClick" prefHeight="102.5" prefWidth="270.0">
          <children>
-            <Label text="Se historik" />
+            <Label text="Se historik" textFill="WHITE" />
          </children></StackPane>
       <StackPane fx:id="menuMyErrors" layoutY="414.0" prefHeight="102.5" prefWidth="270.0">
          <children>
-            <Label text="Se mine fejl" />
+            <Label text="Se mine fejl" textFill="WHITE" />
          </children></StackPane>
       <TableView fx:id="tableviewBookings" layoutX="290.0" layoutY="135.0" prefHeight="575.0" prefWidth="980.0">
         <columns>
